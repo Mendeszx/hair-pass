@@ -3,7 +3,7 @@ package com.api.hairpass.domain.entities;
 import com.api.hairpass.common.enums.RoleEnum;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "salao")
@@ -31,7 +31,7 @@ public class SalaoEntity {
     @Column(nullable = false)
     private String endereco;
     @Column(nullable = false)
-    private Date DataDeCadastro;
+    private LocalDate dataDeCadastro;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleEnum role;
@@ -118,12 +118,12 @@ public class SalaoEntity {
         this.endereco = endereco;
     }
 
-    public Date getDataDeCadastro() {
-        return DataDeCadastro;
+    public LocalDate getDataDeCadastro() {
+        return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Date dataDeCadastro) {
-        DataDeCadastro = dataDeCadastro;
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
+        this.dataDeCadastro = dataDeCadastro;
     }
 
     public RoleEnum getRole() {

@@ -2,9 +2,9 @@ package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
 
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "servico")
@@ -24,7 +24,7 @@ public class ServicoEntity {
     @Column(nullable = false)
     private String descricao;
     @Column(nullable = false)
-    private Data dataDeCadastro;
+    private LocalDate dataDeCadastro;
     @Column(nullable = false)
     private boolean ativo;
 
@@ -76,12 +76,12 @@ public class ServicoEntity {
         this.descricao = descricao;
     }
 
-    public Data getDataDeCadastro() {
+    public LocalDate getDataDeCadastro() {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Data dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
+    public void setDataDeCadastro(LocalDate LocalLocalDateDeCadastro) {
+        this.dataDeCadastro = LocalLocalDateDeCadastro;
     }
 
     public boolean isAtivo() {

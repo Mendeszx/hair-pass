@@ -8,6 +8,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,27 +34,49 @@ public class TokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
-        final String jwtRequisicao;
-        final String userEmail;
+
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        jwtRequisicao = authHeader.substring(7);
-        DecodedJWT jwtDecoded = tokenService.tokenVerify(jwtRequisicao);
-        userEmail = tokenService.getSubject(jwtDecoded);
-        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.getAuthorities()
-            );
-            authToken.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request)
-            );
-            SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        final String jwtRequisicao = authHeader.substring(7);
+        DecodedJWT jwtDecoded;
+
+        try {
+            jwtDecoded = tokenService.verifyToken(jwtRequisicao);
+
+            if (jwtDecoded != null) {
+                String userEmail = tokenService.getSubject(jwtDecoded);
+                if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    try {
+                        UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
+                        if (userDetails != null) {
+                            if (tokenService.isTokenValid(jwtDecoded)) {
+                                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                                        userDetails,
+                                        null,
+                                        userDetails.getAuthorities()
+                                );
+                                authToken.setDetails(
+                                        new WebAuthenticationDetailsSource().buildDetails(request)
+                                );
+                                SecurityContextHolder.getContext().setAuthentication(authToken);
+                            } else {
+                                response.sendError(HttpStatus.FORBIDDEN.value(), "Token expirado");
+                            }
+                        }
+                    } catch (Exception e) {
+                        response.sendError(HttpStatus.NOT_FOUND.value(), "Usuário não encontrado");
+                    }
+                }
+            } else {
+                response.sendError(HttpStatus.FORBIDDEN.value(), "Token inválido");
+            }
+        } catch (Exception e) {
+            response.sendError(HttpStatus.FORBIDDEN.value(), "Erro na validação do token.");
         }
+
         filterChain.doFilter(request, response);
     }
 }

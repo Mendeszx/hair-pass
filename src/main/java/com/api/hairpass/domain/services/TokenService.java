@@ -6,23 +6,28 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.Date;
 
 @Service
 public class TokenService {
 
     private static final String SECRET_KEY = "secret_key";
-    private static final Long EXPIRATION_MILLIS = 3600000L;
+    private static final Long EXPIRATION_MILLIS = 10_000L;
 
     public String generateToken(UsuarioEntity usuarioEntity, String emissor) {
-        Date now = new Date();
-        Date expirationDate = new Date(now.getTime() + EXPIRATION_MILLIS);
 
         return JWT.create()
                 .withIssuer("hair-pass") // Essa reivindicação indica quem emitiu o token.
                 .withSubject(usuarioEntity.getEmail()) // A reivindicação de assunto é usada para identificar o principal ou a entidade sobre a qual o token fornece informações ou autenticação
-                .withIssuedAt(now)
-                .withExpiresAt(expirationDate)
+                .withIssuedAt(LocalDateTime.now()
+                        .toInstant(ZoneOffset.of("-03:00")))
+                .withExpiresAt(LocalDateTime.now()
+                        .plusMinutes(1)
+                        .toInstant(ZoneOffset.of("-03:00")))
                 .withClaim("id", usuarioEntity.getUsuarioId())
                 .sign(Algorithm.HMAC256(SECRET_KEY));
     }
@@ -31,9 +36,14 @@ public class TokenService {
         return token.getSubject();
     }
 
-    public DecodedJWT tokenVerify(String jwt) {
+    public DecodedJWT verifyToken(String jwt) {
         return JWT.require(Algorithm.HMAC256(SECRET_KEY))
-                .build()
-                .verify(jwt);
+                .build().verify(jwt);
+    }
+
+    public boolean isTokenValid(DecodedJWT jwtDecoded) {
+        Date expirationDate = jwtDecoded.getExpiresAt();
+        Date currentDate = new Date();
+        return currentDate.before(expirationDate);
     }
 }

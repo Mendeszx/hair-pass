@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Service
 public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
@@ -17,23 +17,19 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
     @Autowired
     AgendamentoService agendamentoService;
 
+    private final static String DATE_FORMAT = "dd-MM-yyyy";
+
     @Override
     public ResponseEntity<Object> criarAgendamento(CriarAgendamentoRequest criarAgendamentoRequest) {
-        var scheduleModel = new AgendamentoEntity();
-        BeanUtils.copyProperties(criarAgendamentoRequest, scheduleModel);
-        scheduleModel.setCanceledOrder(false);
-        scheduleModel.setServiceOrderDay(LocalDate.now());
-        scheduleModel.setScheduleDay(dateConvert(criarAgendamentoRequest.getScheduleDay()));
-        scheduleModel.setScheduleHour(Time.valueOf(criarAgendamentoRequest.getScheduleHour()));
-        agendamentoService.save(scheduleModel);
-        return ResponseEntity.status(201).body("Sucesso agendar");
-    }
+        AgendamentoEntity agendamentoEntity = new AgendamentoEntity();
+        BeanUtils.copyProperties(criarAgendamentoRequest, agendamentoEntity);
 
-    //TODO: Poderia estar em um utils
-    private LocalDate dateConvert(String date) {
-        int day = Integer.parseInt(date.substring(0,2));
-        int month = Integer.parseInt(date.substring(2,4));
-        int year = Integer.parseInt(date.substring(4,8));
-        return LocalDate.of(year,month,day);
+        agendamentoEntity.setCancelado(false);
+        LocalDate dataDeCadastro = LocalDate.now();
+        agendamentoEntity.setDataDeCadastro(dataDeCadastro);
+
+        agendamentoService.save(agendamentoEntity);
+
+        return ResponseEntity.status(201).body("Sucesso agendar");
     }
 }

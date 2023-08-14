@@ -4,7 +4,8 @@ import com.api.hairpass.common.enums.RoleEnum;
 import com.api.hairpass.common.enums.SexoEnum;
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDate;
+
 
 @Entity
 @Table(name = "funcionario")
@@ -26,14 +27,14 @@ public class FuncionarioEntity {
     @Column(nullable = false)
     private byte[] foto;
     @Column(nullable = false)
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SexoEnum sexo;
     @Column(nullable = false)
     private String descricao;
     @Column(nullable = false)
-    private Date dataDeCadastro;
+    private LocalDate dataDeCadastro;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleEnum role;
@@ -96,11 +97,11 @@ public class FuncionarioEntity {
         this.foto = foto;
     }
 
-    public Date getDataDeNascimento() {
+    public LocalDate getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 
@@ -120,11 +121,11 @@ public class FuncionarioEntity {
         this.descricao = descricao;
     }
 
-    public Date getDataDeCadastro() {
+    public LocalDate getDataDeCadastro() {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Date dataDeCadastro) {
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
 

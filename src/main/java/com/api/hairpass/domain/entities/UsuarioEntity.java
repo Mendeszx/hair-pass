@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class UsuarioEntity implements UserDetails, Serializable {
     @Column(nullable = false, unique = true)
     private String numeroCelular;
     @Column(nullable = false)
-    private Date dataDeNascimento;
+    private LocalDate dataDeNascimento;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SexoEnum sexo;
@@ -36,7 +36,7 @@ public class UsuarioEntity implements UserDetails, Serializable {
     @Column(nullable = false)
     private String senha;
     @Column(nullable = false)
-    private Date dataDeCadastro;
+    private LocalDate dataDeCadastro;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private RoleEnum role;
@@ -75,11 +75,11 @@ public class UsuarioEntity implements UserDetails, Serializable {
         this.numeroCelular = numeroCelular;
     }
 
-    public Date getDataDeNascimento() {
+    public LocalDate getDataDeNascimento() {
         return dataDeNascimento;
     }
 
-    public void setDataDeNascimento(Date dataDeNascimento) {
+    public void setDataDeNascimento(LocalDate dataDeNascimento) {
         this.dataDeNascimento = dataDeNascimento;
     }
 
@@ -115,11 +115,11 @@ public class UsuarioEntity implements UserDetails, Serializable {
         this.senha = senha;
     }
 
-    public Date getDataDeCadastro() {
+    public LocalDate getDataDeCadastro() {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Date dataDeCadastro) {
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
 

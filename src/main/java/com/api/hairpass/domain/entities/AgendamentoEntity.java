@@ -2,7 +2,6 @@ package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 
@@ -20,13 +19,13 @@ public class AgendamentoEntity {
     @Column(nullable = false)
     private Long funcionarioId;
     @Column(nullable = false)
-    private Date dia;
+    private LocalDate dia;
     @Column(nullable = false)
     private Time inicio;
     @Column(nullable = false)
     private Time fim;
     @Column(nullable = false)
-    private Date dataDeCadastro;
+    private LocalDate dataDeCadastro;
     @Column(nullable = false)
     private boolean cancelado;
 
@@ -62,11 +61,11 @@ public class AgendamentoEntity {
         this.funcionarioId = funcionarioId;
     }
 
-    public Date getDia() {
+    public LocalDate getDia() {
         return dia;
     }
 
-    public void setDia(Date dia) {
+    public void setDia(LocalDate dia) {
         this.dia = dia;
     }
 
@@ -86,11 +85,11 @@ public class AgendamentoEntity {
         this.fim = fim;
     }
 
-    public Date getDataDeCadastro() {
+    public LocalDate getDataDeCadastro() {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(Date dataDeCadastro) {
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
         this.dataDeCadastro = dataDeCadastro;
     }
 
