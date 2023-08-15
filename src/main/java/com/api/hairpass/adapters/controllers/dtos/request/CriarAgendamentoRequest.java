@@ -1,55 +1,64 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
+import jakarta.persistence.Column;
+
+import java.util.Date;
+import java.sql.Time;
+
 public class CriarAgendamentoRequest {
+    
+    private Long salaoId;
+    private Long servicoId;
+    private Long funcionarioId;
+    private Date dia;
+    private Time inicio;
+    private Time fim;
 
-    private String clientName;
-
-    private String clientEmail;
-
-    private String scheduleDay;
-
-    private String scheduleHour;
-
-    private String barberName;
-
-
-    public String getClientName() {
-        return clientName;
+    public Long getSalaoId() {
+        return salaoId;
     }
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName;
+    public void setSalaoId(Long salaoId) {
+        this.salaoId = salaoId;
     }
 
-    public String getClientEmail() {
-        return clientEmail;
+    public Long getServicoId() {
+        return servicoId;
     }
 
-    public void setClientEmail(String clientEmail) {
-        this.clientEmail = clientEmail;
+    public void setServicoId(Long servicoId) {
+        this.servicoId = servicoId;
     }
 
-    public String getScheduleDay() {
-        return scheduleDay;
+    public Long getFuncionarioId() {
+        return funcionarioId;
     }
 
-    public void setScheduleDay(String scheduleDay) {
-        this.scheduleDay = scheduleDay;
+    public void setFuncionarioId(Long funcionarioId) {
+        this.funcionarioId = funcionarioId;
     }
 
-    public String getScheduleHour() {
-        return scheduleHour;
+    public Date getDia() {
+        return dia;
     }
 
-    public void setScheduleHour(String scheduleHour) {
-        this.scheduleHour = scheduleHour;
+    public void setDia(Date dia) {
+        this.dia = dia;
     }
 
-    public String getBarberName() {
-        return barberName;
+    public Time getInicio() {
+        return inicio;
     }
 
-    public void setBarberName(String barberName) {
-        this.barberName = barberName;
+    public void setInicio(Time inicio) {
+        this.inicio = inicio;
+    }
+
+    public Time getFim() {
+        return fim;
+    }
+
+    public void setFim(Time fim) {
+        this.fim = fim;
     }
 }
