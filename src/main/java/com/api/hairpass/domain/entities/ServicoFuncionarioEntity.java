@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "salao_funcionario")
-public class SalaoFuncionarioEntity {
+@Table(name = "funcionario_servico")
+public class ServicoFuncionarioEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long salaoFuncionarioId;
+    private Long funcionarioServicoId;
+    @Column(nullable = false)
+    private Long servicoId;
     @Column(nullable = false)
     private Long funcionarioId;
     @Column(nullable = false)
@@ -18,12 +20,20 @@ public class SalaoFuncionarioEntity {
     @Column(nullable = false)
     private boolean ativo;
 
-    public Long getSalaoFuncionarioId() {
-        return salaoFuncionarioId;
+    public Long getFuncionarioServicoId() {
+        return funcionarioServicoId;
     }
 
-    public void setSalaoFuncionarioId(Long salaoFuncionarioId) {
-        this.salaoFuncionarioId = salaoFuncionarioId;
+    public void setFuncionarioServicoId(Long funcionarioServicoId) {
+        this.funcionarioServicoId = funcionarioServicoId;
+    }
+
+    public Long getServicoId() {
+        return servicoId;
+    }
+
+    public void setServicoId(Long servicoId) {
+        this.servicoId = servicoId;
     }
 
     public Long getFuncionarioId() {
