@@ -1,12 +1,11 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
 import com.api.hairpass.common.enums.SexoEnum;
-import com.api.hairpass.common.objects.Endereco;
 
-public class CadastroUsuarioRequest {
+public class CadastroUsuariosRequest {
 
     private String nome;
-    private String CPF;
+    private String cpf;
     private String numeroCelular;
     private String dataDeNascimento;
     private SexoEnum sexo;
@@ -22,12 +21,12 @@ public class CadastroUsuarioRequest {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.cpf = CPF;
     }
 
     public String getNumeroCelular() {

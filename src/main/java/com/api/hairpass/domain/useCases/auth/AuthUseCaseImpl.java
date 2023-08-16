@@ -2,10 +2,10 @@ package com.api.hairpass.domain.useCases.auth;
 
 
 import com.api.hairpass.domain.services.TokenService;
-import com.api.hairpass.domain.entities.UsuarioEntity;
+import com.api.hairpass.domain.entities.UsuariosEntity;
 import com.api.hairpass.adapters.controllers.dtos.request.LoginRequest;
 import com.api.hairpass.adapters.controllers.dtos.response.LoginResponse;
-import com.api.hairpass.domain.services.UsuarioService;
+import com.api.hairpass.domain.services.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class AuthUseCaseImpl implements AuthUseCase {
 
     @Autowired
-    UsuarioService usuarioService;
+    UsuariosService usuariosService;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -31,9 +31,9 @@ public class AuthUseCaseImpl implements AuthUseCase {
     public ResponseEntity<LoginResponse> login(LoginRequest loginRequest) {
         LoginResponse response;
         try {
-            var dataLogin = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha());
+            UsernamePasswordAuthenticationToken dataLogin = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getSenha());
             Authentication authenticate = this.authenticationManager.authenticate(dataLogin);
-            var usuario = (UsuarioEntity) authenticate.getPrincipal();
+            UsuariosEntity usuario = (UsuariosEntity) authenticate.getPrincipal();
             String token = tokenService.generateToken(usuario, "login");
             response = loginResponse(200, HttpStatus.OK, token, "Login realizado com sucesso.");
 

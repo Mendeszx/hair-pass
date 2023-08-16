@@ -2,7 +2,7 @@ package com.api.hairpass.adapters.controllers.dtos.response;
 
 import org.springframework.http.HttpStatus;
 
-public class CadastroFuncionarioResponse {
+public class CadastroSalaoResponse {
     private int httpStatusCode;
     private HttpStatus httpStatus;
     private String mensagem;

@@ -7,26 +7,27 @@ import java.sql.Time;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "servico")
-public class ServicoEntity {
+@Table(name = "servicos")
+public class ServicosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "servicoId")
     private Long servicoId;
-    @Column(nullable = false)
-    private Long salaoId;
-    @Column(nullable = false)
-    private Long nome;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "empresa_id")
+    private Long empresaId;
+    @Column(nullable = false, name = "nome")
+    private String nome;
+    @Column(nullable = false, name = "valor")
     private BigDecimal valor;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "duracao")
     private Time duracao;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "descricao")
     private String descricao;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
-    @Column(nullable = false)
-    private boolean ativo;
+    @Column(nullable = false, name = "servico_ativo")
+    private boolean servicoAtivo;
 
     public Long getServicoId() {
         return servicoId;
@@ -36,19 +37,19 @@ public class ServicoEntity {
         this.servicoId = servicoId;
     }
 
-    public Long getSalaoId() {
-        return salaoId;
+    public Long getEmpresaId() {
+        return empresaId;
     }
 
-    public void setSalaoId(Long salaoId) {
-        this.salaoId = salaoId;
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
     }
 
-    public Long getNome() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(Long nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -80,15 +81,15 @@ public class ServicoEntity {
         return dataDeCadastro;
     }
 
-    public void setDataDeCadastro(LocalDate LocalLocalDateDeCadastro) {
-        this.dataDeCadastro = LocalLocalDateDeCadastro;
+    public void setDataDeCadastro(LocalDate dataDeCadastro) {
+        this.dataDeCadastro = dataDeCadastro;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public boolean isServicoAtivo() {
+        return servicoAtivo;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setServicoAtivo(boolean servicoAtivo) {
+        this.servicoAtivo = servicoAtivo;
     }
 }

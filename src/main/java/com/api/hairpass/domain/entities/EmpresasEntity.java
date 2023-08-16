@@ -1,49 +1,46 @@
 package com.api.hairpass.domain.entities;
 
-import com.api.hairpass.common.enums.RoleEnum;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "salao")
-public class SalaoEntity {
+@Table(name = "empresas")
+public class EmpresasEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long salaoId;
-    @Column(nullable = false)
+    @Column(name = "empresa_id")
+    private Long empresaId;
+    @Column(nullable = false, name = "nome")
     private String nome;
-    @Column(unique = true)
-    private String CNPJ;
-    @Column()
+    @Column(unique = true, name = "cnpj")
+    private String cnpj;
+    @Column(unique = true, name = "cpf")
+    private String cpf;
+    @Column(unique = true, name = "categoria")
+    private String categoria;
+    @Column(name = "foto")
     private byte[] foto;
-    @Column()
+    @Column(name = "foto_de_capa")
     private byte[] fotoDeCapa;
-    @Column()
+    @Column(name = "descricao")
     private String descricao;
-    @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String senha;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, name = "telefone")
     private String telefone;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "endereco")
     private String endereco;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private RoleEnum role;
-    @Column(nullable = false)
-    private boolean ativo;
+    @Column(nullable = false, name = "empresa_ativo")
+    private boolean empresaAtivo;
 
-    public Long getSalaoId() {
-        return salaoId;
+    public Long getEmpresaId() {
+        return empresaId;
     }
 
-    public void setSalaoId(Long salaoId) {
-        this.salaoId = salaoId;
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
     }
 
     public String getNome() {
@@ -54,12 +51,28 @@ public class SalaoEntity {
         this.nome = nome;
     }
 
-    public String getCNPJ() {
-        return CNPJ;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public byte[] getFoto() {
@@ -86,22 +99,6 @@ public class SalaoEntity {
         this.descricao = descricao;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -126,19 +123,11 @@ public class SalaoEntity {
         this.dataDeCadastro = dataDeCadastro;
     }
 
-    public RoleEnum getRole() {
-        return role;
+    public boolean isEmpresaAtivo() {
+        return empresaAtivo;
     }
 
-    public void setRole(RoleEnum role) {
-        this.role = role;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setEmpresaAtivo(boolean empresaAtivo) {
+        this.empresaAtivo = empresaAtivo;
     }
 }

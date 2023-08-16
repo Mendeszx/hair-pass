@@ -6,27 +6,28 @@ import java.sql.Time;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "agendamento")
-public class AgendamentoEntity {
+@Table(name = "agendamentos")
+public class AgendamentosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "agendamento_id")
     private Long agendamentoId;
-    @Column(nullable = false)
-    private Long salaoId;
-    @Column(nullable = false)
-    private Long servicoId;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "empresa_id")
+    private Long empresaId;
+    @Column(nullable = false, name = "servicos_id")
+    private String servicosId;
+    @Column(nullable = false, name = "funcionario_id")
     private Long funcionarioId;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "dia")
     private LocalDate dia;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "inicio")
     private Time inicio;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "fim")
     private Time fim;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "cancelado")
     private boolean cancelado;
 
     public Long getAgendamentoId() {
@@ -37,20 +38,20 @@ public class AgendamentoEntity {
         this.agendamentoId = agendamentoId;
     }
 
-    public Long getSalaoId() {
-        return salaoId;
+    public Long getEmpresaId() {
+        return empresaId;
     }
 
-    public void setSalaoId(Long salaoId) {
-        this.salaoId = salaoId;
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
     }
 
-    public Long getServicoId() {
-        return servicoId;
+    public String getServicosId() {
+        return servicosId;
     }
 
-    public void setServicoId(Long servicoId) {
-        this.servicoId = servicoId;
+    public void setServicosId(String servicosId) {
+        this.servicosId = servicosId;
     }
 
     public Long getFuncionarioId() {
