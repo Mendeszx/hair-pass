@@ -1,7 +1,7 @@
 package com.api.hairpass.configurations.securityConfig.filter;
 
 import com.api.hairpass.domain.services.TokenService;
-import com.api.hairpass.domain.services.UsuarioService;
+import com.api.hairpass.domain.services.UsuariosService;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,7 +26,7 @@ public class TokenFilter extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private UsuarioService usuarioService;
+    private UsuariosService usuariosService;
 
     @Autowired
     UserDetailsService userDetailsService;

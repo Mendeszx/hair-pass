@@ -1,6 +1,6 @@
 package com.api.hairpass.configurations;
 
-import com.api.hairpass.domain.services.UsuarioService;
+import com.api.hairpass.domain.services.UsuariosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 public class ApplicationConfig {
     @Autowired
-    UsuarioService usuarioService;
+    UsuariosService usuariosService;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -38,7 +38,7 @@ public class ApplicationConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> usuarioService.findByEmail(username)
+        return username -> usuariosService.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
     }
 }

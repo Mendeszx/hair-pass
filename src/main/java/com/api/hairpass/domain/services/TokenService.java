@@ -1,14 +1,12 @@
 package com.api.hairpass.domain.services;
 
-import com.api.hairpass.domain.entities.UsuarioEntity;
+import com.api.hairpass.domain.entities.UsuariosEntity;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.Date;
 
@@ -18,17 +16,17 @@ public class TokenService {
     private static final String SECRET_KEY = "secret_key";
     private static final Long EXPIRATION_MILLIS = 10_000L;
 
-    public String generateToken(UsuarioEntity usuarioEntity, String emissor) {
+    public String generateToken(UsuariosEntity usuariosEntity, String emissor) {
 
         return JWT.create()
                 .withIssuer("hair-pass") // Essa reivindicação indica quem emitiu o token.
-                .withSubject(usuarioEntity.getEmail()) // A reivindicação de assunto é usada para identificar o principal ou a entidade sobre a qual o token fornece informações ou autenticação
+                .withSubject(usuariosEntity.getEmail()) // A reivindicação de assunto é usada para identificar o principal ou a entidade sobre a qual o token fornece informações ou autenticação
                 .withIssuedAt(LocalDateTime.now()
                         .toInstant(ZoneOffset.of("-03:00")))
                 .withExpiresAt(LocalDateTime.now()
                         .plusMinutes(1)
                         .toInstant(ZoneOffset.of("-03:00")))
-                .withClaim("id", usuarioEntity.getUsuarioId())
+                .withClaim("id", usuariosEntity.getUsuarioId())
                 .sign(Algorithm.HMAC256(SECRET_KEY));
     }
 

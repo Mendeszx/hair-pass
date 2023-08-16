@@ -1,9 +1,8 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
 import com.api.hairpass.common.enums.SexoEnum;
-import com.api.hairpass.common.objects.Endereco;
 
-public class CadastroUsuarioRequest {
+public class CadastroUsuariosRequest {
 
     private String nome;
     private String CPF;

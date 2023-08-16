@@ -1,14 +1,14 @@
 package com.api.hairpass.domain.useCases.cadastro;
 
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroFuncionarioRequest;
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroServicoRequest;
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroUsuarioRequest;
-import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
-import com.api.hairpass.adapters.controllers.dtos.response.CadastroUsuarioResponse;
+import com.api.hairpass.adapters.controllers.dtos.request.*;
+import com.api.hairpass.adapters.controllers.dtos.response.*;
 import org.springframework.http.ResponseEntity;
 
 public interface CadastroUseCase {
-    ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(CadastroUsuarioRequest cadastroUsuarioRequest);
-    ResponseEntity<Object> cadastrarNovoServico(CadastroServicoRequest cadastroServicoRequest);
-    ResponseEntity<Object> cadastrarNovoFuncionario(CadastroFuncionarioRequest cadastroFuncionarioRequest);
+    ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(CadastroUsuariosRequest cadastroUsuariosRequest);
+    ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicosRequest cadastroServicosRequest);
+    ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(CadastroFuncionariosRequest cadastroFuncionariosRequest);
+    ResponseEntity<CadastroSalaoResponse> cadastrarNovoSalao(CadastroEmpresasRequest cadastroEmpresasRequest);
+    ResponseEntity<CadastroFuncionarioSalaoResponse> cadastrarNovoFuncionarioParaSalao(CadastroFuncionarioSalaoRequest cadastroFuncionarioSalaoRequest);
+    ResponseEntity<CadastroServicoFuncionarioResponse> cadastrarNovoServicoParaFuncionario(CadastroServicoFuncionarioRequest cadastroServicoFuncionarioRequest);
 }

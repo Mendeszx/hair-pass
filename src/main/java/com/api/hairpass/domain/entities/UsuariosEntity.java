@@ -13,35 +13,46 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "usuario")
-public class UsuarioEntity implements UserDetails, Serializable {
+@Table(name = "usuarios")
+public class UsuariosEntity implements UserDetails, Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "usuario_id")
     private Long usuarioId;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "nome")
     private String nome;
-    @Column(nullable = false, unique = true)
-    private String CPF;
-    @Column(nullable = false, unique = true)
+    @Column(name = "foto")
+    private byte[] foto;
+    @Column(nullable = false, unique = true, name = "cpf")
+    private String cpf;
+    @Column(nullable = false, unique = true, name = "numero_celular")
     private String numeroCelular;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "data_de_nascimento")
     private LocalDate dataDeNascimento;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "sexo")
     private SexoEnum sexo;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "endereco")
     private String endereco;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true, name = "email")
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, name = "senha")
     private String senha;
-    @Column(nullable = false)
+    @Column(name = "empresa_id")
+    private Long empresaId;
+    @Column(name = "empresa_ativo")
+    private boolean empresaAtivo;
+    @Column(name = "funcionario_id")
+    private Long funcionarioId;
+    @Column(name = "funcionario_ativo")
+    private boolean funcionarioAtivo;
+    @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(nullable = false, name = "role")
     private RoleEnum role;
-    @Column(nullable = false)
-    private boolean ativo;
+    @Column(nullable = false, name = "usuario_ativo")
+    private boolean usuarioAtivo;
 
     public Long getUsuarioId() {
         return usuarioId;
@@ -59,12 +70,20 @@ public class UsuarioEntity implements UserDetails, Serializable {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public byte[] getFoto() {
+        return foto;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setFoto(byte[] foto) {
+        this.foto = foto;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNumeroCelular() {
@@ -115,6 +134,38 @@ public class UsuarioEntity implements UserDetails, Serializable {
         this.senha = senha;
     }
 
+    public Long getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(Long empresaId) {
+        this.empresaId = empresaId;
+    }
+
+    public Long getFuncionarioId() {
+        return funcionarioId;
+    }
+
+    public void setFuncionarioId(Long funcionarioId) {
+        this.funcionarioId = funcionarioId;
+    }
+
+    public boolean isFuncionarioAtivo() {
+        return funcionarioAtivo;
+    }
+
+    public void setFuncionarioAtivo(boolean funcionarioAtivo) {
+        this.funcionarioAtivo = funcionarioAtivo;
+    }
+
+    public boolean isEmpresaAtivo() {
+        return empresaAtivo;
+    }
+
+    public void setEmpresaAtivo(boolean empresaAtivo) {
+        this.empresaAtivo = empresaAtivo;
+    }
+
     public LocalDate getDataDeCadastro() {
         return dataDeCadastro;
     }
@@ -131,12 +182,12 @@ public class UsuarioEntity implements UserDetails, Serializable {
         this.role = role;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public boolean isUsuarioAtivo() {
+        return usuarioAtivo;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setUsuarioAtivo(boolean usuarioAtivo) {
+        this.usuarioAtivo = usuarioAtivo;
     }
 
     @Override
