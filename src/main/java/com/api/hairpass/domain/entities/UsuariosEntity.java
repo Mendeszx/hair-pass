@@ -38,12 +38,14 @@ public class UsuariosEntity implements UserDetails, Serializable {
     private String email;
     @Column(nullable = false, name = "senha")
     private String senha;
-    @Column(name = "empresa_id")
-    private Long empresaId;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id", unique = true)
+    private EmpresasEntity empresaId;
     @Column(name = "empresa_ativo")
     private boolean empresaAtivo;
-    @Column(name = "funcionario_id")
-    private Long funcionarioId;
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id", referencedColumnName = "funcionario_id", unique = true)
+    private FuncionariosEntity funcionarioId;
     @Column(name = "funcionario_ativo")
     private boolean funcionarioAtivo;
     @Column(nullable = false, name = "data_de_cadastro")
@@ -134,19 +136,19 @@ public class UsuariosEntity implements UserDetails, Serializable {
         this.senha = senha;
     }
 
-    public Long getEmpresaId() {
+    public EmpresasEntity getEmpresaId() {
         return empresaId;
     }
 
-    public void setEmpresaId(Long empresaId) {
+    public void setEmpresaId(EmpresasEntity empresaId) {
         this.empresaId = empresaId;
     }
 
-    public Long getFuncionarioId() {
+    public FuncionariosEntity getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(Long funcionarioId) {
+    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 

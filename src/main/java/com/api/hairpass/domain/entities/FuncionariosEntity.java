@@ -13,8 +13,9 @@ public class FuncionariosEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "funcionario_id")
     private Long funcionarioId;
-    @Column(nullable = false, name = "usuario_id")
-    private Long usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", unique = true)
+    private UsuariosEntity usuarioId;
     @Column(name = "descricao")
     private String descricao;
     @Column(nullable = false, name = "data_de_cadastro")
@@ -30,11 +31,11 @@ public class FuncionariosEntity {
         this.funcionarioId = funcionarioId;
     }
 
-    public Long getUsuarioId() {
+    public UsuariosEntity getUsuarioId() {
         return usuarioId;
     }
 
-    public void setUsuarioId(Long usuarioId) {
+    public void setUsuarioId(UsuariosEntity usuarioId) {
         this.usuarioId = usuarioId;
     }
 

@@ -24,7 +24,7 @@ public class TokenService {
                 .withIssuedAt(LocalDateTime.now()
                         .toInstant(ZoneOffset.of("-03:00")))
                 .withExpiresAt(LocalDateTime.now()
-                        .plusMinutes(1)
+                        .plusMinutes(60)
                         .toInstant(ZoneOffset.of("-03:00")))
                 .withClaim("id", usuariosEntity.getUsuarioId())
                 .sign(Algorithm.HMAC256(SECRET_KEY));

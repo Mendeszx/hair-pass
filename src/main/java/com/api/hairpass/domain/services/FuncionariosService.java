@@ -4,6 +4,7 @@ package com.api.hairpass.domain.services;
 import com.api.hairpass.adapters.controllers.dtos.request.CadastroFuncionariosRequest;
 import com.api.hairpass.adapters.persistence.FuncionariosRepository;
 import com.api.hairpass.domain.entities.FuncionariosEntity;
+import com.api.hairpass.domain.entities.UsuariosEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,10 @@ public class FuncionariosService {
     private final static String DATE_FORMAT = "dd-MM-yyyy";
 
     @Transactional
-    public void cadastrarNovoFuncionario(CadastroFuncionariosRequest cadastroFuncionariosRequest) {
+    public FuncionariosEntity cadastrarNovoFuncionario(UsuariosEntity usuariosEntity) {
         FuncionariosEntity funcionariosEntity = new FuncionariosEntity();
-        BeanUtils.copyProperties(cadastroFuncionariosRequest, funcionariosEntity);
+
+        funcionariosEntity.setUsuarioId(usuariosEntity);
 
         LocalDate dataDeCadastro = LocalDate.now();
 
@@ -30,7 +32,8 @@ public class FuncionariosService {
         funcionariosEntity.setFuncionarioAtivo(true);
 
         try {
-            funcionariosRepository.save(funcionariosEntity);
+            funcionariosEntity = funcionariosRepository.save(funcionariosEntity);
+            return funcionariosEntity;
         } catch (Exception e){
             throw e;
         }

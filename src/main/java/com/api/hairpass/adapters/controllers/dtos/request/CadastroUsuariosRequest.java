@@ -5,7 +5,7 @@ import com.api.hairpass.common.enums.SexoEnum;
 public class CadastroUsuariosRequest {
 
     private String nome;
-    private String CPF;
+    private String cpf;
     private String numeroCelular;
     private String dataDeNascimento;
     private SexoEnum sexo;
@@ -21,12 +21,12 @@ public class CadastroUsuariosRequest {
         this.nome = nome;
     }
 
-    public String getCPF() {
-        return CPF;
+    public String getCpf() {
+        return cpf;
     }
 
     public void setCPF(String CPF) {
-        this.CPF = CPF;
+        this.cpf = CPF;
     }
 
     public String getNumeroCelular() {

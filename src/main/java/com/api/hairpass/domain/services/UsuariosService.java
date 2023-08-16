@@ -1,17 +1,17 @@
 package com.api.hairpass.domain.services;
 
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroFuncionariosRequest;
 import com.api.hairpass.adapters.controllers.dtos.request.CadastroUsuariosRequest;
 import com.api.hairpass.adapters.persistence.UsuariosRepository;
 import com.api.hairpass.common.enums.RoleEnum;
+import com.api.hairpass.domain.entities.FuncionariosEntity;
 import com.api.hairpass.domain.entities.UsuariosEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -26,14 +26,13 @@ public class UsuariosService {
         return usuariosRepository.findByEmail(email);
     }
 
-    public void save(CadastroUsuariosRequest cadastroUsuariosRequest) {
+    public void cadastrarNovoUsuario(CadastroUsuariosRequest cadastroUsuariosRequest) {
         UsuariosEntity usuariosEntity = new UsuariosEntity();
         BeanUtils.copyProperties(cadastroUsuariosRequest, usuariosEntity);
 
         usuariosEntity.setSenha(new BCryptPasswordEncoder().encode(cadastroUsuariosRequest.getSenha()));
 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern(DATE_FORMAT);
-        LocalDate dataDeNascimento = LocalDate.parse(cadastroUsuariosRequest.getDataDeNascimento(), formato);
+        LocalDate dataDeNascimento = LocalDate.parse(cadastroUsuariosRequest.getDataDeNascimento());
 
         LocalDate dataDeCadastro = LocalDate.now();
 
@@ -45,11 +44,13 @@ public class UsuariosService {
         usuariosRepository.save(usuariosEntity);
     }
 
-    public void atualizarUsuarioParaUsuarioFuncionario(CadastroFuncionariosRequest cadastroFuncionariosRequest) {
-        UsuariosEntity usuariosEntity = findUsuariosById(cadastroFuncionariosRequest.getUsuarioId());
+    @Transactional
+    public void atualizarUsuarioParaUsuarioFuncionario(FuncionariosEntity funcionariosEntity) {
+        UsuariosEntity usuariosEntity = findUsuariosById(funcionariosEntity.getUsuarioId().getUsuarioId());
 
         usuariosEntity.setRole(RoleEnum.ROLE_USUARIO_FUNCIONARIO);
         usuariosEntity.setFuncionarioAtivo(true);
+        usuariosEntity.setFuncionarioId(funcionariosEntity);
 
         usuariosRepository.save(usuariosEntity);
     }

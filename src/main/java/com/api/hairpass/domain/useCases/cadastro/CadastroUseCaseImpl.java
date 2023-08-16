@@ -2,6 +2,8 @@ package com.api.hairpass.domain.useCases.cadastro;
 
 import com.api.hairpass.adapters.controllers.dtos.request.*;
 import com.api.hairpass.adapters.controllers.dtos.response.*;
+import com.api.hairpass.domain.entities.FuncionariosEntity;
+import com.api.hairpass.domain.entities.UsuariosEntity;
 import com.api.hairpass.domain.services.FuncionariosService;
 import com.api.hairpass.domain.services.EmpresasService;
 import com.api.hairpass.domain.services.ServicosService;
@@ -31,7 +33,7 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         CadastroUsuarioResponse cadastroUsuarioResponse;
 
         try {
-            usuariosService.save(cadastroUsuariosRequest);
+            usuariosService.cadastrarNovoUsuario(cadastroUsuariosRequest);
             cadastroUsuarioResponse = criarCadastroUsuarioResponse(201, HttpStatus.CREATED, "Usuário cadastrado com sucesso.");
 
         } catch (Exception e) {
@@ -61,8 +63,9 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         CadastroFuncionarioResponse cadastroFuncionarioResponse;
 
         try {
-            funcionariosService.cadastrarNovoFuncionario(cadastroFuncionariosRequest);
-            usuariosService.atualizarUsuarioParaUsuarioFuncionario(cadastroFuncionariosRequest);
+            UsuariosEntity usuariosEntity = usuariosService.findUsuariosById(cadastroFuncionariosRequest.getUsuarioId());
+            FuncionariosEntity funcionariosEntity = funcionariosService.cadastrarNovoFuncionario(usuariosEntity);
+            usuariosService.atualizarUsuarioParaUsuarioFuncionario(funcionariosEntity);
             cadastroFuncionarioResponse = criarCadastroFuncionarioResponse(201, HttpStatus.CREATED, "Funcionario cadastrado com sucesso.");
 
         } catch (Exception e) {
