@@ -1,8 +1,9 @@
 package com.api.hairpass.domain.services;
 
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroUsuariosRequest;
+import com.api.hairpass.adapters.controllers.dtos.request.CadastroUsuarioRequest;
 import com.api.hairpass.adapters.persistence.UsuariosRepository;
 import com.api.hairpass.common.enums.RoleEnum;
+import com.api.hairpass.domain.entities.EmpresasEntity;
 import com.api.hairpass.domain.entities.FuncionariosEntity;
 import com.api.hairpass.domain.entities.UsuariosEntity;
 import jakarta.transaction.Transactional;
@@ -26,13 +27,13 @@ public class UsuariosService {
         return usuariosRepository.findByEmail(email);
     }
 
-    public void cadastrarNovoUsuario(CadastroUsuariosRequest cadastroUsuariosRequest) {
+    public void cadastrarNovoUsuario(CadastroUsuarioRequest cadastroUsuarioRequest) {
         UsuariosEntity usuariosEntity = new UsuariosEntity();
-        BeanUtils.copyProperties(cadastroUsuariosRequest, usuariosEntity);
+        BeanUtils.copyProperties(cadastroUsuarioRequest, usuariosEntity);
 
-        usuariosEntity.setSenha(new BCryptPasswordEncoder().encode(cadastroUsuariosRequest.getSenha()));
+        usuariosEntity.setSenha(new BCryptPasswordEncoder().encode(cadastroUsuarioRequest.getSenha()));
 
-        LocalDate dataDeNascimento = LocalDate.parse(cadastroUsuariosRequest.getDataDeNascimento());
+        LocalDate dataDeNascimento = LocalDate.parse(cadastroUsuarioRequest.getDataDeNascimento());
 
         LocalDate dataDeCadastro = LocalDate.now();
 
@@ -63,5 +64,16 @@ public class UsuariosService {
         } else {
             throw new RuntimeException("Usuario não encontrado");
         }
+    }
+
+    @Transactional
+    public void atualizarUsuarioParaUsuarioEmpresa(EmpresasEntity empresasEntity) {
+        UsuariosEntity usuariosEntity = findUsuariosById(empresasEntity.getUsuarioId().getUsuarioId());
+
+        usuariosEntity.setRole(RoleEnum.ROLE_USUARIO_EMPRESA);
+        usuariosEntity.setEmpresaAtivo(true);
+        usuariosEntity.setEmpresaId(empresasEntity);
+
+        usuariosRepository.save(usuariosEntity);
     }
 }

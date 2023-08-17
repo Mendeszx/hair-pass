@@ -3,12 +3,22 @@ package com.api.hairpass.adapters.controllers.dtos.request;
 
 public class CadastroEmpresasRequest {
 
+    private Long usuarioId;
     private String nome;
-    private String CNPJ;
-    private String email;
-    private String senha;
+    private String cnpj;
+    private String cpf;
+    private String categoria;
+    private String descricao;
     private String telefone;
     private String endereco;
+
+    public Long getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 
     public String getNome() {
         return nome;
@@ -18,28 +28,36 @@ public class CadastroEmpresasRequest {
         this.nome = nome;
     }
 
-    public String getCNPJ() {
-        return CNPJ;
+    public String getCnpj() {
+        return cnpj;
     }
 
-    public void setCNPJ(String CNPJ) {
-        this.CNPJ = CNPJ;
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getTelefone() {

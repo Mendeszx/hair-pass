@@ -12,6 +12,9 @@ public class EmpresasEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "empresa_id")
     private Long empresaId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", unique = true)
+    private UsuariosEntity usuarioId;
     @Column(nullable = false, name = "nome")
     private String nome;
     @Column(unique = true, name = "cnpj")
@@ -41,6 +44,14 @@ public class EmpresasEntity {
 
     public void setEmpresaId(Long empresaId) {
         this.empresaId = empresaId;
+    }
+
+    public UsuariosEntity getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(UsuariosEntity usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getNome() {

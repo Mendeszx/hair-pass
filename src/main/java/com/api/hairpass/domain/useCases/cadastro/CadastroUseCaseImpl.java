@@ -2,6 +2,7 @@ package com.api.hairpass.domain.useCases.cadastro;
 
 import com.api.hairpass.adapters.controllers.dtos.request.*;
 import com.api.hairpass.adapters.controllers.dtos.response.*;
+import com.api.hairpass.domain.entities.EmpresasEntity;
 import com.api.hairpass.domain.entities.FuncionariosEntity;
 import com.api.hairpass.domain.entities.UsuariosEntity;
 import com.api.hairpass.domain.services.FuncionariosService;
@@ -29,11 +30,11 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
     EmpresasService empresasService;
 
     @Override
-    public ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(CadastroUsuariosRequest cadastroUsuariosRequest) {
+    public ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(CadastroUsuarioRequest cadastroUsuarioRequest) {
         CadastroUsuarioResponse cadastroUsuarioResponse;
 
         try {
-            usuariosService.cadastrarNovoUsuario(cadastroUsuariosRequest);
+            usuariosService.cadastrarNovoUsuario(cadastroUsuarioRequest);
             cadastroUsuarioResponse = criarCadastroUsuarioResponse(201, HttpStatus.CREATED, "Usuário cadastrado com sucesso.");
 
         } catch (Exception e) {
@@ -44,11 +45,11 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
     }
 
     @Override
-    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicosRequest cadastroServicosRequest) {
+    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicoRequest cadastroServicoRequest) {
         CadastroServicoResponse cadastroServicoResponse;
 
         try {
-            servicosService.save(cadastroServicosRequest);
+            servicosService.save(cadastroServicoRequest);
             cadastroServicoResponse = criarCadastroServicoResponse(201, HttpStatus.CREATED, "Serviço cadastrado com sucesso.");
 
         } catch (Exception e) {
@@ -59,11 +60,11 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
     }
 
     @Override
-    public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(CadastroFuncionariosRequest cadastroFuncionariosRequest) {
+    public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(CadastroFuncionarioRequest cadastroFuncionarioRequest) {
         CadastroFuncionarioResponse cadastroFuncionarioResponse;
 
         try {
-            UsuariosEntity usuariosEntity = usuariosService.findUsuariosById(cadastroFuncionariosRequest.getUsuarioId());
+            UsuariosEntity usuariosEntity = usuariosService.findUsuariosById(cadastroFuncionarioRequest.getUsuarioId());
             FuncionariosEntity funcionariosEntity = funcionariosService.cadastrarNovoFuncionario(usuariosEntity);
             usuariosService.atualizarUsuarioParaUsuarioFuncionario(funcionariosEntity);
             cadastroFuncionarioResponse = criarCadastroFuncionarioResponse(201, HttpStatus.CREATED, "Funcionario cadastrado com sucesso.");
@@ -76,18 +77,20 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
     }
 
     @Override
-    public ResponseEntity<CadastroSalaoResponse> cadastrarNovoSalao(CadastroEmpresasRequest cadastroEmpresasRequest) {
-        CadastroSalaoResponse cadastroSalaoResponse;
+    public ResponseEntity<CadastroEmpresasResponse> cadastrarNovaEmpresa(CadastroEmpresasRequest cadastroEmpresasRequest) {
+        CadastroEmpresasResponse cadastroEmpresasResponse;
 
         try {
-            empresasService.save(cadastroEmpresasRequest);
-            cadastroSalaoResponse = criarCadastroSalaoResponse(201, HttpStatus.CREATED, "Salão cadastrado com sucesso.");
+            UsuariosEntity usuariosEntity = usuariosService.findUsuariosById(cadastroEmpresasRequest.getUsuarioId());
+            EmpresasEntity empresasEntity = empresasService.cadastrarNovaEmpresa(usuariosEntity, cadastroEmpresasRequest);
+            usuariosService.atualizarUsuarioParaUsuarioEmpresa(empresasEntity);
+            cadastroEmpresasResponse = criarCadastroSalaoResponse(201, HttpStatus.CREATED, "Salão cadastrado com sucesso.");
 
         } catch (Exception e) {
-            cadastroSalaoResponse = criarCadastroSalaoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+            cadastroEmpresasResponse = criarCadastroSalaoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
         }
 
-        return ResponseEntity.status(cadastroSalaoResponse.getHttpStatusCode()).body(cadastroSalaoResponse);
+        return ResponseEntity.status(cadastroEmpresasResponse.getHttpStatusCode()).body(cadastroEmpresasResponse);
     }
 
     @Override
@@ -130,13 +133,13 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         return cadastroServicoResponse;
     }
 
-    private CadastroSalaoResponse criarCadastroSalaoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
-        CadastroSalaoResponse cadastroSalaoResponse = new CadastroSalaoResponse();
+    private CadastroEmpresasResponse criarCadastroSalaoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
+        CadastroEmpresasResponse cadastroEmpresasResponse = new CadastroEmpresasResponse();
 
-        cadastroSalaoResponse.setHttpStatusCode(httpStatusCode);
-        cadastroSalaoResponse.setHttpStatus(httpStatus);
-        cadastroSalaoResponse.setMensagem(mensagem);
+        cadastroEmpresasResponse.setHttpStatusCode(httpStatusCode);
+        cadastroEmpresasResponse.setHttpStatus(httpStatus);
+        cadastroEmpresasResponse.setMensagem(mensagem);
 
-        return cadastroSalaoResponse;
+        return cadastroEmpresasResponse;
     }
 }

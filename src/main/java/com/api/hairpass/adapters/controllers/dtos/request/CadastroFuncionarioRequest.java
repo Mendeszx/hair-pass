@@ -1,7 +1,7 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
 
-public class CadastroFuncionariosRequest {
+public class CadastroFuncionarioRequest {
 
     private Long usuarioId;
 
