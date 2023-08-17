@@ -27,6 +27,7 @@ public class UsuariosService {
         return usuariosRepository.findByEmail(email);
     }
 
+    @Transactional
     public void cadastrarNovoUsuario(CadastroUsuarioRequest cadastroUsuarioRequest) {
         UsuariosEntity usuariosEntity = new UsuariosEntity();
         BeanUtils.copyProperties(cadastroUsuarioRequest, usuariosEntity);
@@ -56,8 +57,8 @@ public class UsuariosService {
         usuariosRepository.save(usuariosEntity);
     }
 
-    public UsuariosEntity findUsuariosById(Long id) {
-        Optional<UsuariosEntity> entity = usuariosRepository.findById(id);
+    public UsuariosEntity findUsuariosById(Long usuarioId) {
+        Optional<UsuariosEntity> entity = usuariosRepository.findById(usuarioId);
 
         if (entity.isPresent()) {
             return entity.get();

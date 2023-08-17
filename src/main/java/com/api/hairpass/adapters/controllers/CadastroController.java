@@ -19,11 +19,6 @@ public class CadastroController {
         return cadastroUseCase.cadastrarNovoUsuario(cadastroUsuarioRequest);
     }
 
-    @PostMapping("/servico")
-    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(@RequestBody CadastroServicoRequest cadastroServicoRequest) {
-        return cadastroUseCase.cadastrarNovoServico(cadastroServicoRequest);
-    }
-
     @PostMapping("/funcionario")
     public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(@RequestBody CadastroFuncionarioRequest cadastroFuncionarioRequest) {
         return cadastroUseCase.cadastrarNovoFuncionario(cadastroFuncionarioRequest);
@@ -32,6 +27,11 @@ public class CadastroController {
     @PostMapping("/empresa")
     public ResponseEntity<CadastroEmpresasResponse> cadastrarNovaEmpresa(@RequestBody CadastroEmpresasRequest cadastroEmpresasRequest) {
         return cadastroUseCase.cadastrarNovaEmpresa(cadastroEmpresasRequest);
+    }
+
+    @PostMapping("/servico")
+    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(@RequestBody CadastroServicoRequest cadastroServicoRequest) {
+        return cadastroUseCase.cadastrarNovoServico(cadastroServicoRequest);
     }
 
     @PostMapping("/funcionario-salao")

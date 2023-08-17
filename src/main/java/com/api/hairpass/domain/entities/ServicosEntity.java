@@ -14,15 +14,16 @@ public class ServicosEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "servicoId")
     private Long servicoId;
-    @Column(nullable = false, name = "empresa_id")
-    private Long empresaId;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id", unique = true, nullable = false)
+    private EmpresasEntity empresaId;
     @Column(nullable = false, name = "nome")
     private String nome;
     @Column(nullable = false, name = "valor")
     private BigDecimal valor;
     @Column(nullable = false, name = "duracao")
     private Time duracao;
-    @Column(nullable = false, name = "descricao")
+    @Column(name = "descricao")
     private String descricao;
     @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
@@ -37,11 +38,11 @@ public class ServicosEntity {
         this.servicoId = servicoId;
     }
 
-    public Long getEmpresaId() {
+    public EmpresasEntity getEmpresaId() {
         return empresaId;
     }
 
-    public void setEmpresaId(Long empresaId) {
+    public void setEmpresaId(EmpresasEntity empresaId) {
         this.empresaId = empresaId;
     }
 

@@ -4,6 +4,7 @@ import com.api.hairpass.adapters.controllers.dtos.request.*;
 import com.api.hairpass.adapters.controllers.dtos.response.*;
 import com.api.hairpass.domain.entities.EmpresasEntity;
 import com.api.hairpass.domain.entities.FuncionariosEntity;
+import com.api.hairpass.domain.entities.ServicosEntity;
 import com.api.hairpass.domain.entities.UsuariosEntity;
 import com.api.hairpass.domain.services.FuncionariosService;
 import com.api.hairpass.domain.services.EmpresasService;
@@ -45,21 +46,6 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
     }
 
     @Override
-    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicoRequest cadastroServicoRequest) {
-        CadastroServicoResponse cadastroServicoResponse;
-
-        try {
-            servicosService.save(cadastroServicoRequest);
-            cadastroServicoResponse = criarCadastroServicoResponse(201, HttpStatus.CREATED, "Serviço cadastrado com sucesso.");
-
-        } catch (Exception e) {
-            cadastroServicoResponse = criarCadastroServicoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
-        }
-
-        return ResponseEntity.status(cadastroServicoResponse.getHttpStatusCode()).body(cadastroServicoResponse);
-    }
-
-    @Override
     public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(CadastroFuncionarioRequest cadastroFuncionarioRequest) {
         CadastroFuncionarioResponse cadastroFuncionarioResponse;
 
@@ -91,6 +77,22 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         }
 
         return ResponseEntity.status(cadastroEmpresasResponse.getHttpStatusCode()).body(cadastroEmpresasResponse);
+    }
+
+    @Override
+    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicoRequest cadastroServicoRequest) {
+        CadastroServicoResponse cadastroServicoResponse;
+
+        try {
+            EmpresasEntity empresasEntity = empresasService.findEmpresaById(cadastroServicoRequest.getEmpresaId());
+            servicosService.criarNovoServicoParaEmpresa(cadastroServicoRequest, empresasEntity);
+            cadastroServicoResponse = criarCadastroServicoResponse(201, HttpStatus.CREATED, "Serviço cadastrado com sucesso.");
+
+        } catch (Exception e) {
+            cadastroServicoResponse = criarCadastroServicoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+        }
+
+        return ResponseEntity.status(cadastroServicoResponse.getHttpStatusCode()).body(cadastroServicoResponse);
     }
 
     @Override
