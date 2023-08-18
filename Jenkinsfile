@@ -1,15 +1,16 @@
 pipeline {
-    agent any
+    agent { docker 'openjdk:17-alpine' }
 
     stages {
         stage('Test') {
             steps {
-                echo 'Testando...'
+                sh './mvnw clean'
             }
         }
         stage('Build') {
+            agent { docker 'openjdk:17-alpine' }
             steps {
-                echo 'Compilando...'
+                sh './mvnw install'
             }
         }
         stage('Store') {
