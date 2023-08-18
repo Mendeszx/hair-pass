@@ -1,8 +1,9 @@
 pipeline {
-    agent { docker 'openjdk:17-alpine' }
+    agent none
 
     stages {
         stage('Test') {
+            agent { docker 'openjdk:17-alpine' }
             steps {
                 sh './mvnw clean'
             }
