@@ -1,7 +1,11 @@
-FROM adoptopenjdk:17-jdk-hotspot
+FROM openjdk:17-alpine
 
 WORKDIR /app
 
-COPY target/meu-projeto-spring.jar app.jar
+COPY target/hair-pass-0.0.1-SNAPSHOT.jar app.jar
+
+EXPOSE 8080
+
+LABEL maintainer="hair-pass-app"
 
 CMD ["java", "-jar", "app.jar"]
