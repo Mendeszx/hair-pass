@@ -15,23 +15,23 @@ public class CadastroController {
     private CadastroUseCase cadastroUseCase;
 
     @PostMapping("/usuario")
-    public ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(@RequestBody CadastroUsuariosRequest cadastroUsuariosRequest) {
-        return cadastroUseCase.cadastrarNovoUsuario(cadastroUsuariosRequest);
-    }
-
-    @PostMapping("/servico")
-    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(@RequestBody CadastroServicosRequest cadastroServicosRequest) {
-        return cadastroUseCase.cadastrarNovoServico(cadastroServicosRequest);
+    public ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest) {
+        return cadastroUseCase.cadastrarNovoUsuario(cadastroUsuarioRequest);
     }
 
     @PostMapping("/funcionario")
-    public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(@RequestBody CadastroFuncionariosRequest cadastroFuncionariosRequest) {
-        return cadastroUseCase.cadastrarNovoFuncionario(cadastroFuncionariosRequest);
+    public ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(@RequestBody CadastroFuncionarioRequest cadastroFuncionarioRequest) {
+        return cadastroUseCase.cadastrarNovoFuncionario(cadastroFuncionarioRequest);
     }
 
-    @PostMapping("/salao")
-    public ResponseEntity<CadastroSalaoResponse> cadastrarNovoSalao(@RequestBody CadastroEmpresasRequest cadastroEmpresasRequest) {
-        return cadastroUseCase.cadastrarNovoSalao(cadastroEmpresasRequest);
+    @PostMapping("/empresa")
+    public ResponseEntity<CadastroEmpresasResponse> cadastrarNovaEmpresa(@RequestBody CadastroEmpresasRequest cadastroEmpresasRequest) {
+        return cadastroUseCase.cadastrarNovaEmpresa(cadastroEmpresasRequest);
+    }
+
+    @PostMapping("/servico")
+    public ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(@RequestBody CadastroServicoRequest cadastroServicoRequest) {
+        return cadastroUseCase.cadastrarNovoServico(cadastroServicoRequest);
     }
 
     @PostMapping("/funcionario-salao")

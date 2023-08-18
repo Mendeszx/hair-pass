@@ -1,7 +1,8 @@
 package com.api.hairpass.domain.services;
 
-import com.api.hairpass.adapters.controllers.dtos.request.CadastroServicosRequest;
+import com.api.hairpass.adapters.controllers.dtos.request.CadastroServicoRequest;
 import com.api.hairpass.adapters.persistence.ServicosRepository;
+import com.api.hairpass.domain.entities.EmpresasEntity;
 import com.api.hairpass.domain.entities.ServicosEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
@@ -21,18 +22,19 @@ public class ServicosService {
     private final static String DATE_FORMAT = "dd-MM-yyyy";
 
     @Transactional
-    public void save(CadastroServicosRequest cadastroServicosRequest) {
+    public void criarNovoServicoParaEmpresa(CadastroServicoRequest cadastroServicoRequest, EmpresasEntity empresasEntity) {
         ServicosEntity servicosEntity = new ServicosEntity();
-        BeanUtils.copyProperties(cadastroServicosRequest, servicosEntity);
+        BeanUtils.copyProperties(cadastroServicoRequest, servicosEntity);
 
-        servicosEntity.setValor(new BigDecimal(cadastroServicosRequest.getValor()));
-        servicosEntity.setDuracao(new Time(Long.parseLong(cadastroServicosRequest.getDuracao())));
+        servicosEntity.setEmpresaId(empresasEntity);
+        servicosEntity.setValor(new BigDecimal(cadastroServicoRequest.getValor()));
+        servicosEntity.setDuracao(Time.valueOf(cadastroServicoRequest.getDuracao()));
 
         LocalDate dataDeCadastro = LocalDate.now();
 
         servicosEntity.setDataDeCadastro(dataDeCadastro);
         servicosEntity.setServicoAtivo(true);
 
-        servicosRepository.save(servicosEntity);
+        servicosEntity = servicosRepository.save(servicosEntity);
     }
 }
