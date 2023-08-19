@@ -1,34 +1,17 @@
 pipeline {
-    agent none
+    agent any
 
-    stages {
-        stage('Test') {
-            agent {
-                docker {
-                    image 'openjdk:17-alpine'
-                    args '-v /root/.m2:/root/.m2'
-                    }
+        stages {
+            stage('Test') {
+                steps {
+                    sh 'mvn clean package'
+                    sh 'mvn test'
                 }
-            steps {
-                sh './mvnw clean'
             }
-        }
+
         stage('Build') {
-            agent { docker 'openjdk/openjdk:17-alpine' }
             steps {
-                sh './mvnw install'
-            }
-        }
-        stage('Store') {
-            agent any
-            steps {
-                echo 'Armazenando...'
-            }
-        }
-        stage('Deploy') {
-            agent any
-            steps {
-                echo 'Implantando...'
+                sh 'mvn install'
             }
         }
     }
