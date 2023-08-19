@@ -1,17 +1,21 @@
 pipeline {
     agent any
-
         stages {
-            stage('Test') {
+            stage('Build') {
                 steps {
-                    sh 'mvn clean package'
-                    sh 'mvn test'
+                    sh 'mvn clean package -DskipTests=true'
                 }
             }
 
-        stage('Build') {
-            steps {
-                sh 'mvn install'
+            stage('Unit Test') {
+                steps {
+                sh 'mvn test'
+            }
+
+            stage('Deploy Backend') {
+                steps {
+                    echo 'Implantando...'
+                }
             }
         }
     }
