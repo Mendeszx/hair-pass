@@ -36,6 +36,7 @@ pipeline {
 
                         sh 'ls' // Exemplo: Listar conteúdo da pasta
                         sh 'docker-compose build' // Exemplo: Executar build do Docker Compose
+                        }
                     }
                 }
             }
