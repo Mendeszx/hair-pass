@@ -28,15 +28,7 @@ pipeline {
             stage('Build da nova imagem') {
                 steps {
                     script {
-                        sh 'ls'
-
-                        def projectDirectory = "/var/lib/jenkins/workspace/app-dev"
-
-                        dir(projectDirectory) {
-
-                        sh 'ls' // Exemplo: Listar conteúdo da pasta
                         sh 'docker-compose build' // Exemplo: Executar build do Docker Compose
-                        }
                     }
                 }
             }
@@ -44,11 +36,7 @@ pipeline {
             stage('Deploy Backend') {
                 steps {
                     script {
-                        try {
-                            echo 'teste'
-                        } catch (Exception e) {
-                            sh "echo $e"
-                        }
+                        sh 'docker images'
                     }
                 }
             }
