@@ -28,7 +28,7 @@ pipeline {
             stage('Build da nova imagem') {
                 steps {
                     script {
-                        sh '/usr/bin/docker-compose build'
+                        sh '/var/lib/jenkins/workspace/app-dev/docker-compose build'
                     }
                 }
             }
