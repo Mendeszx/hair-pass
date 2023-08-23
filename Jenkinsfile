@@ -28,13 +28,7 @@ pipeline {
             stage('Build da nova imagem') {
                 steps {
                     script {
-                        def dockerCompose = dockerCompose(
-                                                composeFile: 'docker-compose.yml',
-                                                build: true,
-                                                up: false,
-                                                down: false
-                                                )
-                        dockerCompose.dockerComposeBuild()
+                        sh 'docker-compose build'
                     }
                 }
             }
