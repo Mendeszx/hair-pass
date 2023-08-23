@@ -17,9 +17,9 @@ pipeline {
                 steps {
                     script {
                         try {
-                            sh 'docker rm -f django-todolist-dev'
+                            sh 'docker rmi hair-pass-app'
                         } catch (Exception e) {
-                            sh "echo $e"
+                            sh 'echo $e'
                         }
                     }
                 }
@@ -28,7 +28,7 @@ pipeline {
             stage('Build da nova imagem') {
                 steps {
                     script {
-                        sh 'docker-compose build' // Exemplo: Executar build do Docker Compose
+                        sh 'docker-compose build'
                     }
                 }
             }
