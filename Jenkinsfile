@@ -1,20 +1,53 @@
 pipeline {
     agent any
         stages {
-            stage('Build') {
+            stage('Clean e install') {
                 steps {
                     sh 'mvn clean package -DskipTests=true'
                 }
             }
 
-            stage('Unit Test') {
+            stage('Testes Unitarios') {
                 steps {
-                sh 'mvn test'
+                    sh 'mvn test'
+                }
+            }
+
+            stage('Derrubando o container antigo') {
+                steps {
+                    script {
+                        try {
+                            sh 'docker rm -f django-todolist-dev'
+                        } catch (Exception e) {
+                            sh "echo $e"
+                        }
+                    }
+                }
+            }
+
+            stage('Build da nova imagem') {
+                steps {
+                    script {
+                        def dockerCompose = dockerCompose(
+                                                composeFile: 'docker-compose.yml',
+                                                build: true,
+                                                up: false,
+                                                down: false
+                                                )
+                        dockerCompose.dockerComposeBuild()
+                    }
+                }
             }
 
             stage('Deploy Backend') {
                 steps {
-                    echo 'Implantando...'
+                    script {
+                        try {
+                            echo 'teste'
+                        } catch (Exception e) {
+                            sh "echo $e"
+                        }
+                    }
                 }
             }
         }
