@@ -31,4 +31,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USER }}/hair-pass-app:${{github.ref_name}}
+        tags: nukeer/hair-pass-app:latest
