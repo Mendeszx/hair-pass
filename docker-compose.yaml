@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: hair-pass-app
+    image: nukeer/hair-pass-app
     ports:
       - "8080:8080"
     restart: always
