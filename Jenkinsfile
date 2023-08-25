@@ -1,28 +1,44 @@
 pipeline {
-    agent none
+    agent any
+        stages {
+            stage('Clean e install') {
+                steps {
+                    sh 'mvn clean install -DskipTests=true'
+                }
+            }
 
-    stages {
-        stage('Test') {
-            agent { docker 'openjdk:17-alpine' }
-            steps {
-                sh './mvnw clean'
+            stage('Testes Unitarios') {
+                steps {
+                    sh 'mvn test'
+                }
+            }
+
+            stage('Derrubando o container antigo') {
+                steps {
+                    script {
+                        try {
+                            sh 'docker rmi hair-pass-app'
+                        } catch (Exception e) {
+                            sh 'echo $e'
+                        }
+                    }
+                }
+            }
+
+            stage('Build da nova imagem') {
+                steps {
+                    script {
+                        sh 'docker-compose build'
+                    }
+                }
+            }
+
+            stage('Deploy Backend') {
+                steps {
+                    script {
+                        sh 'docker images'
+                    }
+                }
             }
         }
-        stage('Build') {
-            agent { docker 'openjdk:17-alpine' }
-            steps {
-                sh './mvnw install'
-            }
-        }
-        stage('Store') {
-            steps {
-                echo 'Armazenando...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Implantando...'
-            }
-        }
-    }
 }
