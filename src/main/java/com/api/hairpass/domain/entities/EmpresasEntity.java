@@ -13,7 +13,7 @@ public class EmpresasEntity {
     @Column(name = "empresa_id")
     private Long empresaId;
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", unique = true)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private UsuariosEntity usuarioId;
     @Column(nullable = false, name = "nome")
     private String nome;
@@ -21,7 +21,7 @@ public class EmpresasEntity {
     private String cnpj;
     @Column(unique = true, name = "cpf")
     private String cpf;
-    @Column(unique = true, name = "categoria")
+    @Column(name = "categoria")
     private String categoria;
     @Column(name = "foto")
     private byte[] foto;

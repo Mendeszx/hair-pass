@@ -95,7 +95,8 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         CadastroFuncionarioSalaoResponse cadastroFuncionarioSalaoResponse;
 
         try {
-            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosByCpf(cadastroFuncionarioSalaoRequest.getFuncionarioCpf());
+            UsuariosEntity usuariosEntity = usuariosService.findUsuariosByCpf(cadastroFuncionarioSalaoRequest.getFuncionarioCpf());
+            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosByUsuarioId(usuariosEntity.getUsuarioId());
             EmpresasEntity empresasEntity = empresasService.findEmpresaById(cadastroFuncionarioSalaoRequest.getEmpresaId());
             funcionariosEmpresasService.cadastratNovoFuncionarioNaEmpresa(funcionariosEntity, empresasEntity);
             cadastroFuncionarioSalaoResponse = criarCadastroFuncionarioSalaoResponse(201, HttpStatus.CREATED, "Funcionario cadastrado com sucesso.");

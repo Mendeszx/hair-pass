@@ -13,8 +13,9 @@ public class AgendamentosEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "agendamento_id")
     private Long agendamentoId;
-    @Column(nullable = false, name = "empresa_id")
-    private Long empresaId;
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id")
+    private EmpresasEntity empresaId;
     @Column(nullable = false, name = "servicos_id")
     private String servicosId;
     @Column(nullable = false, name = "funcionario_id")
@@ -38,11 +39,11 @@ public class AgendamentosEntity {
         this.agendamentoId = agendamentoId;
     }
 
-    public Long getEmpresaId() {
+    public EmpresasEntity getEmpresaId() {
         return empresaId;
     }
 
-    public void setEmpresaId(Long empresaId) {
+    public void setEmpresaId(EmpresasEntity empresaId) {
         this.empresaId = empresaId;
     }
 

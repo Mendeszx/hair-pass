@@ -14,7 +14,7 @@ public class FuncionariosEntity {
     @Column(name = "funcionario_id")
     private Long funcionarioId;
     @ManyToOne
-    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id", unique = true)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
     private UsuariosEntity usuarioId;
     @Column(name = "descricao")
     private String descricao;

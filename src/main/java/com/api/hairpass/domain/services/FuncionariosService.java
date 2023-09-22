@@ -38,8 +38,8 @@ public class FuncionariosService {
         }
     }
 
-    public FuncionariosEntity findFuncionariosByCpf(String funcionarioCPF) {
-        Optional<FuncionariosEntity> entity = funcionariosRepository.findByCpf(funcionarioCPF);
+    public FuncionariosEntity findFuncionariosById(String funcionarioId) {
+        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(Long.valueOf(funcionarioId));
 
         if (entity.isPresent()) {
             return entity.get();
@@ -48,8 +48,8 @@ public class FuncionariosService {
         }
     }
 
-    public FuncionariosEntity findFuncionariosById(String funcionarioId) {
-        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(Long.valueOf(funcionarioId));
+    public FuncionariosEntity findFuncionariosByUsuarioId(long usuarioId) {
+        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(usuarioId);
 
         if (entity.isPresent()) {
             return entity.get();

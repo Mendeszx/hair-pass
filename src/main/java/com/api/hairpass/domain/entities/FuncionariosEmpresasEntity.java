@@ -12,9 +12,11 @@ public class FuncionariosEmpresasEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "funcionarios_empresas_id")
     private Long funcionariosEmpresasId;
-    @Column(nullable = false, name = "funcionario_id")
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id", referencedColumnName = "funcionario_id")
     private FuncionariosEntity funcionarioId;
-    @Column(nullable = false, name = "empresa_id")
+    @ManyToOne
+    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id")
     private EmpresasEntity empresaId;
     @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;

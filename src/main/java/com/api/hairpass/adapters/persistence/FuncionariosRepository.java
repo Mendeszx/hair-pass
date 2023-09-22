@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface FuncionariosRepository extends JpaRepository<FuncionariosEntity, Long> {
-    Optional<FuncionariosEntity> findByCpf(String funcionarioCPF);
 }

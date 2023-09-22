@@ -12,10 +12,10 @@ public class ServicosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "servicoId")
+    @Column(name = "servico_id")
     private Long servicoId;
     @ManyToOne
-    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id", unique = true, nullable = false)
+    @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id", nullable = false)
     private EmpresasEntity empresaId;
     @Column(nullable = false, name = "nome")
     private String nome;
