@@ -34,9 +34,9 @@ public class CadastroController {
         return cadastroUseCase.cadastrarNovoServico(cadastroServicoRequest);
     }
 
-    @PostMapping("/funcionario-salao")
-    public ResponseEntity<CadastroFuncionarioSalaoResponse> cadastrarNovoFuncionarioParaSalao(@RequestBody CadastroFuncionarioSalaoRequest cadastroFuncionarioSalaoRequest) {
-        return cadastroUseCase.cadastrarNovoFuncionarioParaSalao(cadastroFuncionarioSalaoRequest);
+    @PostMapping("/funcionario-empresa")
+    public ResponseEntity<CadastroFuncionarioEmpresaResponse> cadastrarNovoFuncionarioParaSalao(@RequestBody CadastroFuncionarioEmpresaRequest cadastroFuncionarioEmpresaRequest) {
+        return cadastroUseCase.cadastrarNovoFuncionarioParaEmpresa(cadastroFuncionarioEmpresaRequest);
     }
 
     @PostMapping("/servico-funcionario")

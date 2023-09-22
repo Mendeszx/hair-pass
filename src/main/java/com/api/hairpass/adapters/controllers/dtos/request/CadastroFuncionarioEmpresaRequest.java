@@ -1,6 +1,6 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
-public class CadastroFuncionarioSalaoRequest {
+public class CadastroFuncionarioEmpresaRequest {
 
     private String funcionarioCpf;
     private String empresaId;

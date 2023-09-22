@@ -48,7 +48,7 @@ public class AuthUseCaseImpl implements AuthUseCase {
 
         response.setHttpStatusCode(code);
         response.setHttpStatus(httpStatus);
-        response.setJwt(token);
+        response.setToken(token);
         response.setMensagem(mensagem);
 
         return response;

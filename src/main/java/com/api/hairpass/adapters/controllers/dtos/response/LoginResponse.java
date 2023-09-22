@@ -1,12 +1,11 @@
 package com.api.hairpass.adapters.controllers.dtos.response;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 public class LoginResponse {
     private int httpStatusCode;
     private HttpStatus httpStatus;
-    private String jwt;
+    private String token;
     private String mensagem;
 
     public int getHttpStatusCode() {
@@ -25,12 +24,12 @@ public class LoginResponse {
         this.httpStatus = httpStatus;
     }
 
-    public String getJwt() {
-        return jwt;
+    public String getToken() {
+        return token;
     }
 
-    public void setJwt(String jwt) {
-        this.jwt = jwt;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getMensagem() {

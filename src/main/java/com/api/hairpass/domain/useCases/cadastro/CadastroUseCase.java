@@ -9,6 +9,6 @@ public interface CadastroUseCase {
     ResponseEntity<CadastroFuncionarioResponse> cadastrarNovoFuncionario(CadastroFuncionarioRequest cadastroFuncionarioRequest);
     ResponseEntity<CadastroEmpresasResponse> cadastrarNovaEmpresa(CadastroEmpresasRequest cadastroEmpresasRequest);
     ResponseEntity<CadastroServicoResponse> cadastrarNovoServico(CadastroServicoRequest cadastroServicoRequest);
-    ResponseEntity<CadastroFuncionarioSalaoResponse> cadastrarNovoFuncionarioParaSalao(CadastroFuncionarioSalaoRequest cadastroFuncionarioSalaoRequest);
+    ResponseEntity<CadastroFuncionarioEmpresaResponse> cadastrarNovoFuncionarioParaEmpresa(CadastroFuncionarioEmpresaRequest cadastroFuncionarioEmpresaRequest);
     ResponseEntity<CadastroServicoFuncionarioResponse> cadastrarNovoServicoParaFuncionario(CadastroServicoFuncionarioRequest cadastroServicoFuncionarioRequest);
 }
