@@ -13,9 +13,9 @@ public class FuncionariosEmpresasEntity {
     @Column(name = "funcionarios_empresas_id")
     private Long funcionariosEmpresasId;
     @Column(nullable = false, name = "funcionario_id")
-    private Long funcionarioId;
+    private FuncionariosEntity funcionarioId;
     @Column(nullable = false, name = "empresa_id")
-    private Long empresaId;
+    private EmpresasEntity empresaId;
     @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
     @Column(nullable = false, name = "funcionario_empresa_ativo")
@@ -29,19 +29,19 @@ public class FuncionariosEmpresasEntity {
         this.funcionariosEmpresasId = funcionariosEmpresasId;
     }
 
-    public Long getFuncionarioId() {
+    public FuncionariosEntity getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(Long funcionarioId) {
+    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 
-    public Long getEmpresaId() {
+    public EmpresasEntity getEmpresaId() {
         return empresaId;
     }
 
-    public void setEmpresaId(Long empresaId) {
+    public void setEmpresaId(EmpresasEntity empresaId) {
         this.empresaId = empresaId;
     }
 

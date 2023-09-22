@@ -1,8 +1,12 @@
 FROM openjdk:17-alpine
 
-ENV DB_URL=value1
-ENV DB_USER=value2
-ENV DB_PASSWORD=value3
+ARG VAR1="jdbc:postgresql://host.docker.internal:5432/hair_pass"
+ARG VAR2="postgres"
+ARG VAR3="admin"
+
+ENV DB_URL=$VAR1
+ENV DB_USER=$VAR2
+ENV DB_PASSWORD=$VAR3
 
 WORKDIR /app
 

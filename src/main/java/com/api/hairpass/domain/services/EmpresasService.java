@@ -3,6 +3,7 @@ package com.api.hairpass.domain.services;
 import com.api.hairpass.adapters.controllers.dtos.request.CadastroEmpresasRequest;
 import com.api.hairpass.adapters.persistence.EmpresasRepository;
 import com.api.hairpass.domain.entities.EmpresasEntity;
+import com.api.hairpass.domain.entities.FuncionariosEntity;
 import com.api.hairpass.domain.entities.ServicosEntity;
 import com.api.hairpass.domain.entities.UsuariosEntity;
 import jakarta.transaction.Transactional;
@@ -41,8 +42,8 @@ public class EmpresasService {
         }
     }
 
-    public EmpresasEntity findEmpresaById(Long empresaId) {
-        Optional<EmpresasEntity> entity = empresasRepository.findById(empresaId);
+    public EmpresasEntity findEmpresaById(String empresaId) {
+        Optional<EmpresasEntity> entity = empresasRepository.findById(Long.valueOf(empresaId));
 
         if (entity.isPresent()) {
             return entity.get();

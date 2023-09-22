@@ -2,22 +2,22 @@ package com.api.hairpass.adapters.controllers.dtos.request;
 
 public class CadastroFuncionarioSalaoRequest {
 
-    private String funcionarioCPF;
-    private String salaoId;
+    private String funcionarioCpf;
+    private String empresaId;
 
-    public String getFuncionarioCPF() {
-        return funcionarioCPF;
+    public String getFuncionarioCpf() {
+        return funcionarioCpf;
     }
 
-    public void setFuncionarioCPF(String funcionarioCPF) {
-        this.funcionarioCPF = funcionarioCPF;
+    public void setFuncionarioCpf(String funcionarioCpf) {
+        this.funcionarioCpf = funcionarioCpf;
     }
 
-    public String getSalaoId() {
-        return salaoId;
+    public String getEmpresaId() {
+        return empresaId;
     }
 
-    public void setSalaoId(String salaoId) {
-        this.salaoId = salaoId;
+    public void setEmpresaId(String empresaId) {
+        this.empresaId = empresaId;
     }
 }

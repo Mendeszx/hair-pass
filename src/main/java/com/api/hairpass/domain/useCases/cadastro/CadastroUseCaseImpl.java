@@ -2,14 +2,8 @@ package com.api.hairpass.domain.useCases.cadastro;
 
 import com.api.hairpass.adapters.controllers.dtos.request.*;
 import com.api.hairpass.adapters.controllers.dtos.response.*;
-import com.api.hairpass.domain.entities.EmpresasEntity;
-import com.api.hairpass.domain.entities.FuncionariosEntity;
-import com.api.hairpass.domain.entities.ServicosEntity;
-import com.api.hairpass.domain.entities.UsuariosEntity;
-import com.api.hairpass.domain.services.FuncionariosService;
-import com.api.hairpass.domain.services.EmpresasService;
-import com.api.hairpass.domain.services.ServicosService;
-import com.api.hairpass.domain.services.UsuariosService;
+import com.api.hairpass.domain.entities.*;
+import com.api.hairpass.domain.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,15 +14,16 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
 
     @Autowired
     UsuariosService usuariosService;
-
     @Autowired
     FuncionariosService funcionariosService;
-
     @Autowired
     ServicosService servicosService;
-
     @Autowired
     EmpresasService empresasService;
+    @Autowired
+    FuncionariosEmpresasService funcionariosEmpresasService;
+    @Autowired
+    ServicosFuncionariosService servicosFuncionariosService;
 
     @Override
     public ResponseEntity<CadastroUsuarioResponse> cadastrarNovoUsuario(CadastroUsuarioRequest cadastroUsuarioRequest) {
@@ -97,12 +92,56 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
 
     @Override
     public ResponseEntity<CadastroFuncionarioSalaoResponse> cadastrarNovoFuncionarioParaSalao(CadastroFuncionarioSalaoRequest cadastroFuncionarioSalaoRequest) {
-        return null;
+        CadastroFuncionarioSalaoResponse cadastroFuncionarioSalaoResponse;
+
+        try {
+            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosByCpf(cadastroFuncionarioSalaoRequest.getFuncionarioCpf());
+            EmpresasEntity empresasEntity = empresasService.findEmpresaById(cadastroFuncionarioSalaoRequest.getEmpresaId());
+            funcionariosEmpresasService.cadastratNovoFuncionarioNaEmpresa(funcionariosEntity, empresasEntity);
+            cadastroFuncionarioSalaoResponse = criarCadastroFuncionarioSalaoResponse(201, HttpStatus.CREATED, "Funcionario cadastrado com sucesso.");
+
+        } catch (Exception e) {
+            cadastroFuncionarioSalaoResponse = criarCadastroFuncionarioSalaoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+        }
+
+        return ResponseEntity.status(cadastroFuncionarioSalaoResponse.getHttpStatusCode()).body(cadastroFuncionarioSalaoResponse);
     }
 
     @Override
     public ResponseEntity<CadastroServicoFuncionarioResponse> cadastrarNovoServicoParaFuncionario(CadastroServicoFuncionarioRequest cadastroServicoFuncionarioRequest) {
-        return null;
+        CadastroServicoFuncionarioResponse cadastroServicoFuncionarioResponse;
+
+        try {
+            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosById(cadastroServicoFuncionarioRequest.getFuncionarioId());
+            ServicosEntity servicosEntity = servicosService.findServicosById(cadastroServicoFuncionarioRequest.getServicoId());
+            ServicosFuncionariosEntity servicosFuncionariosEntity = servicosFuncionariosService.cadastratNovoServicoParaFuncionario(funcionariosEntity, servicosEntity);
+            cadastroServicoFuncionarioResponse = criarCadastroServicoFuncionarioResponse(201, HttpStatus.CREATED, "Serviço para funcionario cadastrado com sucesso.");
+
+        } catch (Exception e) {
+            cadastroServicoFuncionarioResponse = criarCadastroServicoFuncionarioResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+        }
+
+        return ResponseEntity.status(cadastroServicoFuncionarioResponse.getHttpStatusCode()).body(cadastroServicoFuncionarioResponse);
+    }
+
+    private CadastroServicoFuncionarioResponse criarCadastroServicoFuncionarioResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
+        CadastroServicoFuncionarioResponse cadastroServicoFuncionarioResponse = new CadastroServicoFuncionarioResponse();
+
+        cadastroServicoFuncionarioResponse.setHttpStatusCode(httpStatusCode);
+        cadastroServicoFuncionarioResponse.setHttpStatus(httpStatus);
+        cadastroServicoFuncionarioResponse.setMensagem(mensagem);
+
+        return cadastroServicoFuncionarioResponse;
+    }
+
+    private CadastroFuncionarioSalaoResponse criarCadastroFuncionarioSalaoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
+        CadastroFuncionarioSalaoResponse cadastroFuncionarioSalaoResponse = new CadastroFuncionarioSalaoResponse();
+
+        cadastroFuncionarioSalaoResponse.setHttpStatusCode(httpStatusCode);
+        cadastroFuncionarioSalaoResponse.setHttpStatus(httpStatus);
+        cadastroFuncionarioSalaoResponse.setMensagem(mensagem);
+
+        return cadastroFuncionarioSalaoResponse;
     }
 
     private CadastroUsuarioResponse criarCadastroUsuarioResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {

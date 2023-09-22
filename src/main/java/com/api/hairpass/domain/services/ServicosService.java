@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class ServicosService {
@@ -36,5 +37,15 @@ public class ServicosService {
         servicosEntity.setServicoAtivo(true);
 
         servicosEntity = servicosRepository.save(servicosEntity);
+    }
+
+    public ServicosEntity findServicosById(String servicoId) {
+        Optional<ServicosEntity> entity = servicosRepository.findById(Long.valueOf(servicoId));
+
+        if (entity.isPresent()) {
+            return entity.get();
+        } else {
+            throw new RuntimeException("Serviço não encontrado.");
+        }
     }
 }

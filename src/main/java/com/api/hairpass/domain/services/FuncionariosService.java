@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class FuncionariosService {
@@ -34,6 +35,26 @@ public class FuncionariosService {
             return funcionariosEntity;
         } catch (Exception e){
             throw e;
+        }
+    }
+
+    public FuncionariosEntity findFuncionariosByCpf(String funcionarioCPF) {
+        Optional<FuncionariosEntity> entity = funcionariosRepository.findByCpf(funcionarioCPF);
+
+        if (entity.isPresent()) {
+            return entity.get();
+        } else {
+            throw new RuntimeException("Funcionário não encontrado");
+        }
+    }
+
+    public FuncionariosEntity findFuncionariosById(String funcionarioId) {
+        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(Long.valueOf(funcionarioId));
+
+        if (entity.isPresent()) {
+            return entity.get();
+        } else {
+            throw new RuntimeException("Funcionário não encontrado");
         }
     }
 }

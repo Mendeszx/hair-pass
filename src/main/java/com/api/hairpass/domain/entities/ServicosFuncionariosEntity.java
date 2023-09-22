@@ -13,13 +13,13 @@ public class ServicosFuncionariosEntity {
     @Column(name = "funcionario_servico_id")
     private Long funcionarioServicoId;
     @Column(nullable = false, name = "servico_id")
-    private Long servicoId;
+    private ServicosEntity servicoId;
     @Column(nullable = false, name = "funcionario_id")
-    private Long funcionarioId;
+    private FuncionariosEntity funcionarioId;
     @Column(nullable = false, name = "data_de_cadastro")
     private LocalDate dataDeCadastro;
-    @Column(nullable = false, name = "funcionario_servico_ativo")
-    private boolean funcionarioServicoAtivo;
+    @Column(nullable = false, name = "servico_funcionario_ativo")
+    private boolean servicoFuncionarioAtivo;
 
     public Long getFuncionarioServicoId() {
         return funcionarioServicoId;
@@ -29,19 +29,19 @@ public class ServicosFuncionariosEntity {
         this.funcionarioServicoId = funcionarioServicoId;
     }
 
-    public Long getServicoId() {
+    public ServicosEntity getServicoId() {
         return servicoId;
     }
 
-    public void setServicoId(Long servicoId) {
+    public void setServicoId(ServicosEntity servicoId) {
         this.servicoId = servicoId;
     }
 
-    public Long getFuncionarioId() {
+    public FuncionariosEntity getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(Long funcionarioId) {
+    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 
@@ -53,11 +53,11 @@ public class ServicosFuncionariosEntity {
         this.dataDeCadastro = dataDeCadastro;
     }
 
-    public boolean isFuncionarioServicoAtivo() {
-        return funcionarioServicoAtivo;
+    public boolean isServicoFuncionarioAtivo() {
+        return servicoFuncionarioAtivo;
     }
 
-    public void setFuncionarioServicoAtivo(boolean funcionarioServicoAtivo) {
-        this.funcionarioServicoAtivo = funcionarioServicoAtivo;
+    public void setServicoFuncionarioAtivo(boolean servicoFuncionarioAtivo) {
+        this.servicoFuncionarioAtivo = servicoFuncionarioAtivo;
     }
 }

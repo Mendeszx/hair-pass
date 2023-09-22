@@ -3,17 +3,17 @@ package com.api.hairpass.adapters.controllers.dtos.request;
 
 public class CadastroServicoRequest {
 
-    private Long empresaId;
+    private String empresaId;
     private String nome;
     private String valor;
     private String duracao;
     private String descricao;
 
-    public Long getEmpresaId() {
+    public String getEmpresaId() {
         return empresaId;
     }
 
-    public void setEmpresaId(Long empresaId) {
+    public void setEmpresaId(String empresaId) {
         this.empresaId = empresaId;
     }
 

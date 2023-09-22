@@ -63,7 +63,17 @@ public class UsuariosService {
         if (entity.isPresent()) {
             return entity.get();
         } else {
-            throw new RuntimeException("Usuario não encontrado");
+            throw new RuntimeException("Usuário não encontrado");
+        }
+    }
+
+    public UsuariosEntity findUsuariosByCpf(String cpf) {
+        Optional<UsuariosEntity> entity = usuariosRepository.findByCpf(cpf);
+
+        if (entity.isPresent()) {
+            return entity.get();
+        } else {
+            throw new RuntimeException("Usuário não encontrado");
         }
     }
 
