@@ -35,7 +35,7 @@ public class CadastroController {
     }
 
     @PostMapping("/funcionario-empresa")
-    public ResponseEntity<CadastroFuncionarioEmpresaResponse> cadastrarNovoFuncionarioParaSalao(@RequestBody CadastroFuncionarioEmpresaRequest cadastroFuncionarioEmpresaRequest) {
+    public ResponseEntity<CadastroFuncionarioEmpresaResponse> cadastrarNovoFuncionarioParaEmpresa(@RequestBody CadastroFuncionarioEmpresaRequest cadastroFuncionarioEmpresaRequest) {
         return cadastroUseCase.cadastrarNovoFuncionarioParaEmpresa(cadastroFuncionarioEmpresaRequest);
     }
 

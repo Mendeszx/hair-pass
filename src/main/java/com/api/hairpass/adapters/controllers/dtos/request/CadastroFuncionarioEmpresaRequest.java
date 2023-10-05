@@ -2,15 +2,15 @@ package com.api.hairpass.adapters.controllers.dtos.request;
 
 public class CadastroFuncionarioEmpresaRequest {
 
-    private String funcionarioCpf;
+    private String usuarioId;
     private String empresaId;
 
-    public String getFuncionarioCpf() {
-        return funcionarioCpf;
+    public String getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setFuncionarioCpf(String funcionarioCpf) {
-        this.funcionarioCpf = funcionarioCpf;
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
     public String getEmpresaId() {

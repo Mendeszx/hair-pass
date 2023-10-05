@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/v1/cadastro/servico")
                         .hasRole("USUARIO_EMPRESA")
-                        .requestMatchers(HttpMethod.POST,"/api/v1/cadastro/funcionario-salao")
+                        .requestMatchers(HttpMethod.POST,"/api/v1/cadastro/funcionario-empresa")
                         .hasRole("USUARIO_EMPRESA")
                         .requestMatchers(HttpMethod.POST,"/api/v1/cadastro/servico-funcionario")
                         .hasRole("USUARIO_EMPRESA")
