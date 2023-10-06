@@ -39,8 +39,8 @@ public class ServicosService {
         servicosEntity = servicosRepository.save(servicosEntity);
     }
 
-    public ServicosEntity findServicosById(String servicoId) {
-        Optional<ServicosEntity> entity = servicosRepository.findById(Long.valueOf(servicoId));
+    public ServicosEntity findServicosById(Long servicoId) {
+        Optional<ServicosEntity> entity = servicosRepository.findById(servicoId);
 
         if (entity.isPresent()) {
             return entity.get();

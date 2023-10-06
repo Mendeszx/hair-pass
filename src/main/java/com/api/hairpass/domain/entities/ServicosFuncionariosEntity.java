@@ -10,8 +10,8 @@ public class ServicosFuncionariosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "funcionario_servico_id")
-    private Long funcionarioServicoId;
+    @Column(name = "servico_funcionario_id")
+    private Long servicoFuncionarioId;
     @ManyToOne
     @JoinColumn(name = "servico_id", referencedColumnName = "servico_id")
     private ServicosEntity servicoId;
@@ -23,12 +23,12 @@ public class ServicosFuncionariosEntity {
     @Column(nullable = false, name = "servico_funcionario_ativo")
     private boolean servicoFuncionarioAtivo;
 
-    public Long getFuncionarioServicoId() {
-        return funcionarioServicoId;
+    public Long getServicoFuncionarioId() {
+        return servicoFuncionarioId;
     }
 
-    public void setFuncionarioServicoId(Long funcionarioServicoId) {
-        this.funcionarioServicoId = funcionarioServicoId;
+    public void setServicoFuncionarioId(Long servicoFuncionarioId) {
+        this.servicoFuncionarioId = servicoFuncionarioId;
     }
 
     public ServicosEntity getServicoId() {

@@ -1,10 +1,12 @@
 package com.api.hairpass.domain.useCases.agendamento;
 
 import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
+import com.api.hairpass.adapters.controllers.dtos.response.CriarAgendamentoResponse;
 import com.api.hairpass.domain.services.AgendamentosService;
 import com.api.hairpass.domain.entities.AgendamentosEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +18,28 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
     @Autowired
     AgendamentosService agendamentosService;
 
-    private final static String DATE_FORMAT = "dd-MM-yyyy";
-
     @Override
-    public ResponseEntity<Object> criarAgendamento(CriarAgendamentoRequest criarAgendamentoRequest) {
-        AgendamentosEntity agendamentosEntity = new AgendamentosEntity();
-        BeanUtils.copyProperties(criarAgendamentoRequest, agendamentosEntity);
+    public ResponseEntity<CriarAgendamentoResponse> criarAgendamento(CriarAgendamentoRequest criarAgendamentoRequest) {
+        CriarAgendamentoResponse criarAgendamentoResponse;
 
-        agendamentosEntity.setCancelado(false);
-        LocalDate dataDeCadastro = LocalDate.now();
-        agendamentosEntity.setDataDeCadastro(dataDeCadastro);
+        try {
+            agendamentosService.criarAgendamento(criarAgendamentoRequest);
+            criarAgendamentoResponse = criarAgendamentoResponse(201, HttpStatus.CREATED, "Agendamento criado com sucesso.");
 
-        agendamentosService.save(agendamentosEntity);
+        } catch (Exception e) {
+            criarAgendamentoResponse = criarAgendamentoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+        }
 
-        return ResponseEntity.status(201).body("Sucesso agendar");
+        return ResponseEntity.status(criarAgendamentoResponse.getHttpStatusCode()).body(criarAgendamentoResponse);
+    }
+
+    private CriarAgendamentoResponse criarAgendamentoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
+        CriarAgendamentoResponse criarAgendamentoResponse = new CriarAgendamentoResponse();
+
+        criarAgendamentoResponse.setHttpStatusCode(httpStatusCode);
+        criarAgendamentoResponse.setHttpStatus(httpStatus);
+        criarAgendamentoResponse.setMensagem(mensagem);
+
+        return criarAgendamentoResponse;
     }
 }

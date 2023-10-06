@@ -38,8 +38,8 @@ public class FuncionariosService {
         }
     }
 
-    public FuncionariosEntity findFuncionariosById(String funcionarioId) {
-        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(Long.valueOf(funcionarioId));
+    public FuncionariosEntity findFuncionariosById(Long funcionarioId) {
+        Optional<FuncionariosEntity> entity = funcionariosRepository.findById(funcionarioId);
 
         if (entity.isPresent()) {
             return entity.get();

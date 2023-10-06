@@ -14,12 +14,17 @@ public class AgendamentosEntity {
     @Column(name = "agendamento_id")
     private Long agendamentoId;
     @ManyToOne
+    @JoinColumn(name = "usuario_id", referencedColumnName = "usuario_id")
+    private UsuariosEntity usuariosEntity;
+    @ManyToOne
     @JoinColumn(name = "empresa_id", referencedColumnName = "empresa_id")
     private EmpresasEntity empresaId;
-    @Column(nullable = false, name = "servicos_id")
-    private String servicosId;
-    @Column(nullable = false, name = "funcionario_id")
-    private Long funcionarioId;
+    @ManyToOne
+    @JoinColumn(name = "servico_id", referencedColumnName = "servico_id")
+    private ServicosEntity servicoId;
+    @ManyToOne
+    @JoinColumn(name = "funcionario_id", referencedColumnName = "funcionario_id")
+    private FuncionariosEntity funcionarioId;
     @Column(nullable = false, name = "dia")
     private LocalDate dia;
     @Column(nullable = false, name = "inicio")
@@ -39,6 +44,14 @@ public class AgendamentosEntity {
         this.agendamentoId = agendamentoId;
     }
 
+    public UsuariosEntity getUsuariosEntity() {
+        return usuariosEntity;
+    }
+
+    public void setUsuariosEntity(UsuariosEntity usuariosEntity) {
+        this.usuariosEntity = usuariosEntity;
+    }
+
     public EmpresasEntity getEmpresaId() {
         return empresaId;
     }
@@ -47,19 +60,19 @@ public class AgendamentosEntity {
         this.empresaId = empresaId;
     }
 
-    public String getServicosId() {
-        return servicosId;
+    public ServicosEntity getServicoId() {
+        return servicoId;
     }
 
-    public void setServicosId(String servicosId) {
-        this.servicosId = servicosId;
+    public void setServicoId(ServicosEntity servicoId) {
+        this.servicoId = servicoId;
     }
 
-    public Long getFuncionarioId() {
+    public FuncionariosEntity getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(Long funcionarioId) {
+    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 

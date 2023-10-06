@@ -79,7 +79,7 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         CadastroServicoResponse cadastroServicoResponse;
 
         try {
-            EmpresasEntity empresasEntity = empresasService.findEmpresaById(cadastroServicoRequest.getEmpresaId());
+            EmpresasEntity empresasEntity = empresasService.findEmpresaById(Long.valueOf(cadastroServicoRequest.getEmpresaId()));
             servicosService.criarNovoServicoParaEmpresa(cadastroServicoRequest, empresasEntity);
             cadastroServicoResponse = criarCadastroServicoResponse(201, HttpStatus.CREATED, "Serviço cadastrado com sucesso.");
 
@@ -97,7 +97,7 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         try {
             UsuariosEntity usuariosEntity = usuariosService.findUsuariosById(Long.valueOf(cadastroFuncionarioEmpresaRequest.getUsuarioId()));
             FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosByUsuarioId(usuariosEntity);
-            EmpresasEntity empresasEntity = empresasService.findEmpresaById(cadastroFuncionarioEmpresaRequest.getEmpresaId());
+            EmpresasEntity empresasEntity = empresasService.findEmpresaById(Long.valueOf(cadastroFuncionarioEmpresaRequest.getEmpresaId()));
             funcionariosEmpresasService.cadastratNovoFuncionarioNaEmpresa(funcionariosEntity, empresasEntity);
             cadastroFuncionarioEmpresaResponse = criarCadastroFuncionarioSalaoResponse(201, HttpStatus.CREATED, "Funcionario cadastrado com sucesso.");
 
@@ -113,8 +113,8 @@ public class CadastroUseCaseImpl implements CadastroUseCase {
         CadastroServicoFuncionarioResponse cadastroServicoFuncionarioResponse;
 
         try {
-            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosById(cadastroServicoFuncionarioRequest.getFuncionarioId());
-            ServicosEntity servicosEntity = servicosService.findServicosById(cadastroServicoFuncionarioRequest.getServicoId());
+            FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosById(Long.valueOf(cadastroServicoFuncionarioRequest.getFuncionarioId()));
+            ServicosEntity servicosEntity = servicosService.findServicosById(Long.valueOf(cadastroServicoFuncionarioRequest.getServicoId()));
             ServicosFuncionariosEntity servicosFuncionariosEntity = servicosFuncionariosService.cadastratNovoServicoParaFuncionario(funcionariosEntity, servicosEntity);
             cadastroServicoFuncionarioResponse = criarCadastroServicoFuncionarioResponse(201, HttpStatus.CREATED, "Serviço para funcionario cadastrado com sucesso.");
 

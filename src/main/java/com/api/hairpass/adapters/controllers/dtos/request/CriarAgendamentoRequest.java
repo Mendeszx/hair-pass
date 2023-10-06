@@ -1,64 +1,68 @@
 package com.api.hairpass.adapters.controllers.dtos.request;
 
-import jakarta.persistence.Column;
-
-import java.util.Date;
-import java.sql.Time;
-
 public class CriarAgendamentoRequest {
-    
-    private Long salaoId;
-    private Long servicoId;
-    private Long funcionarioId;
-    private Date dia;
-    private Time inicio;
-    private Time fim;
 
-    public Long getSalaoId() {
-        return salaoId;
+    private String usuarioId;
+    private String empresaId;
+    private String servicoId;
+    private String funcionarioId;
+    private String dia;
+    private String inicio;
+    private String fim;
+
+    public String getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setSalaoId(Long salaoId) {
-        this.salaoId = salaoId;
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
     }
 
-    public Long getServicoId() {
+    public String getEmpresaId() {
+        return empresaId;
+    }
+
+    public void setEmpresaId(String empresaId) {
+        this.empresaId = empresaId;
+    }
+
+    public String getServicoId() {
         return servicoId;
     }
 
-    public void setServicoId(Long servicoId) {
+    public void setServicoId(String servicoId) {
         this.servicoId = servicoId;
     }
 
-    public Long getFuncionarioId() {
+    public String getFuncionarioId() {
         return funcionarioId;
     }
 
-    public void setFuncionarioId(Long funcionarioId) {
+    public void setFuncionarioId(String funcionarioId) {
         this.funcionarioId = funcionarioId;
     }
 
-    public Date getDia() {
+    public String getDia() {
         return dia;
     }
 
-    public void setDia(Date dia) {
+    public void setDia(String dia) {
         this.dia = dia;
     }
 
-    public Time getInicio() {
+    public String getInicio() {
         return inicio;
     }
 
-    public void setInicio(Time inicio) {
+    public void setInicio(String inicio) {
         this.inicio = inicio;
     }
 
-    public Time getFim() {
+    public String getFim() {
         return fim;
     }
 
-    public void setFim(Time fim) {
+    public void setFim(String fim) {
         this.fim = fim;
     }
 }

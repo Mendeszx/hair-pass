@@ -42,8 +42,8 @@ public class EmpresasService {
         }
     }
 
-    public EmpresasEntity findEmpresaById(String empresaId) {
-        Optional<EmpresasEntity> entity = empresasRepository.findById(Long.valueOf(empresaId));
+    public EmpresasEntity findEmpresaById(Long empresaId) {
+        Optional<EmpresasEntity> entity = empresasRepository.findById(empresaId);
 
         if (entity.isPresent()) {
             return entity.get();
