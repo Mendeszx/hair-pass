@@ -1,9 +1,15 @@
 package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "funcionarios_empresas")
 public class FuncionariosEmpresasEntity {
@@ -22,44 +28,4 @@ public class FuncionariosEmpresasEntity {
     private LocalDate dataDeCadastro;
     @Column(nullable = false, name = "funcionario_empresa_ativo")
     private boolean funcionarioEmpresaAtivo;
-
-    public Long getFuncionariosEmpresasId() {
-        return funcionariosEmpresasId;
-    }
-
-    public void setFuncionariosEmpresasId(Long funcionariosEmpresasId) {
-        this.funcionariosEmpresasId = funcionariosEmpresasId;
-    }
-
-    public FuncionariosEntity getFuncionarioId() {
-        return funcionarioId;
-    }
-
-    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
-        this.funcionarioId = funcionarioId;
-    }
-
-    public EmpresasEntity getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(EmpresasEntity empresaId) {
-        this.empresaId = empresaId;
-    }
-
-    public LocalDate getDataDeCadastro() {
-        return dataDeCadastro;
-    }
-
-    public void setDataDeCadastro(LocalDate dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
-    }
-
-    public boolean isFuncionarioEmpresaAtivo() {
-        return funcionarioEmpresaAtivo;
-    }
-
-    public void setFuncionarioEmpresaAtivo(boolean funcionarioEmpresaAtivo) {
-        this.funcionarioEmpresaAtivo = funcionarioEmpresaAtivo;
-    }
 }

@@ -1,11 +1,17 @@
 package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "servicos")
 public class ServicosEntity {
@@ -29,68 +35,4 @@ public class ServicosEntity {
     private LocalDate dataDeCadastro;
     @Column(nullable = false, name = "servico_ativo")
     private boolean servicoAtivo;
-
-    public Long getServicoId() {
-        return servicoId;
-    }
-
-    public void setServicoId(Long servicoId) {
-        this.servicoId = servicoId;
-    }
-
-    public EmpresasEntity getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(EmpresasEntity empresaId) {
-        this.empresaId = empresaId;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public Time getDuracao() {
-        return duracao;
-    }
-
-    public void setDuracao(Time duracao) {
-        this.duracao = duracao;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public LocalDate getDataDeCadastro() {
-        return dataDeCadastro;
-    }
-
-    public void setDataDeCadastro(LocalDate dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
-    }
-
-    public boolean isServicoAtivo() {
-        return servicoAtivo;
-    }
-
-    public void setServicoAtivo(boolean servicoAtivo) {
-        this.servicoAtivo = servicoAtivo;
-    }
 }

@@ -1,9 +1,15 @@
 package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "empresas")
 public class EmpresasEntity {
@@ -37,108 +43,4 @@ public class EmpresasEntity {
     private LocalDate dataDeCadastro;
     @Column(nullable = false, name = "empresa_ativo")
     private boolean empresaAtivo;
-
-    public Long getEmpresaId() {
-        return empresaId;
-    }
-
-    public void setEmpresaId(Long empresaId) {
-        this.empresaId = empresaId;
-    }
-
-    public UsuariosEntity getUsuarioId() {
-        return usuarioId;
-    }
-
-    public void setUsuarioId(UsuariosEntity usuarioId) {
-        this.usuarioId = usuarioId;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public byte[] getFoto() {
-        return foto;
-    }
-
-    public void setFoto(byte[] foto) {
-        this.foto = foto;
-    }
-
-    public byte[] getFotoDeCapa() {
-        return fotoDeCapa;
-    }
-
-    public void setFotoDeCapa(byte[] fotoDeCapa) {
-        this.fotoDeCapa = fotoDeCapa;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public LocalDate getDataDeCadastro() {
-        return dataDeCadastro;
-    }
-
-    public void setDataDeCadastro(LocalDate dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
-    }
-
-    public boolean isEmpresaAtivo() {
-        return empresaAtivo;
-    }
-
-    public void setEmpresaAtivo(boolean empresaAtivo) {
-        this.empresaAtivo = empresaAtivo;
-    }
 }

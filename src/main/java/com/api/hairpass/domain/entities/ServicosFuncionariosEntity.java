@@ -1,9 +1,15 @@
 package com.api.hairpass.domain.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "servicos_funcionarios")
 public class ServicosFuncionariosEntity {
@@ -22,44 +28,4 @@ public class ServicosFuncionariosEntity {
     private LocalDate dataDeCadastro;
     @Column(nullable = false, name = "servico_funcionario_ativo")
     private boolean servicoFuncionarioAtivo;
-
-    public Long getServicoFuncionarioId() {
-        return servicoFuncionarioId;
-    }
-
-    public void setServicoFuncionarioId(Long servicoFuncionarioId) {
-        this.servicoFuncionarioId = servicoFuncionarioId;
-    }
-
-    public ServicosEntity getServicoId() {
-        return servicoId;
-    }
-
-    public void setServicoId(ServicosEntity servicoId) {
-        this.servicoId = servicoId;
-    }
-
-    public FuncionariosEntity getFuncionarioId() {
-        return funcionarioId;
-    }
-
-    public void setFuncionarioId(FuncionariosEntity funcionarioId) {
-        this.funcionarioId = funcionarioId;
-    }
-
-    public LocalDate getDataDeCadastro() {
-        return dataDeCadastro;
-    }
-
-    public void setDataDeCadastro(LocalDate dataDeCadastro) {
-        this.dataDeCadastro = dataDeCadastro;
-    }
-
-    public boolean isServicoFuncionarioAtivo() {
-        return servicoFuncionarioAtivo;
-    }
-
-    public void setServicoFuncionarioAtivo(boolean servicoFuncionarioAtivo) {
-        this.servicoFuncionarioAtivo = servicoFuncionarioAtivo;
-    }
 }
