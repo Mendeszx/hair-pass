@@ -2,13 +2,18 @@ package com.api.hairpass.domain.useCases.agendamento;
 
 import com.api.hairpass.adapters.controllers.dtos.request.CancelarAgendamentoRequest;
 import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
+import com.api.hairpass.adapters.controllers.dtos.request.DisponibilidadeAgendamentoRequest;
 import com.api.hairpass.adapters.controllers.dtos.response.CancelarAgendamentoResponse;
 import com.api.hairpass.adapters.controllers.dtos.response.CriarAgendamentoResponse;
+import com.api.hairpass.adapters.controllers.dtos.response.DisponibilidadeAgendamentoResponse;
+import com.api.hairpass.domain.entities.AgendamentosEntity;
 import com.api.hairpass.domain.services.AgendamentosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
@@ -46,6 +51,21 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
         return ResponseEntity.status(cancelarAgendamentoResponse.getHttpStatusCode()).body(cancelarAgendamentoResponse);
     }
 
+    @Override
+    public ResponseEntity<DisponibilidadeAgendamentoResponse> disponibilidadeAgendamento(DisponibilidadeAgendamentoRequest disponibilidadeAgendamentoRequest) {
+        DisponibilidadeAgendamentoResponse disponibilidadeAgendamentoResponse;
+
+        try {
+            List<AgendamentosEntity> agendamentosEntityList = agendamentosService.disponibilidadeAgendamento(disponibilidadeAgendamentoRequest);
+            disponibilidadeAgendamentoResponse = disponibilidadeAgendamentoResponse(200, HttpStatus.CREATED, agendamentosEntityList, null);
+
+        } catch (Exception e) {
+            disponibilidadeAgendamentoResponse = disponibilidadeAgendamentoResponse(400, HttpStatus.BAD_REQUEST, null,  "Erro: " + e.getMessage());
+        }
+
+        return ResponseEntity.status(disponibilidadeAgendamentoResponse.getHttpStatusCode()).body(disponibilidadeAgendamentoResponse);
+    }
+
     private CriarAgendamentoResponse criarAgendamentoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
         CriarAgendamentoResponse criarAgendamentoResponse = new CriarAgendamentoResponse();
 
@@ -64,5 +84,16 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
         cancelarAgendamentoResponse.setMensagem(mensagem);
 
         return cancelarAgendamentoResponse;
+    }
+
+    private DisponibilidadeAgendamentoResponse disponibilidadeAgendamentoResponse(int httpStatusCode, HttpStatus httpStatus, List<AgendamentosEntity> agendamentos, String mensagem) {
+        DisponibilidadeAgendamentoResponse disponibilidadeAgendamentoResponse = new DisponibilidadeAgendamentoResponse();
+
+        disponibilidadeAgendamentoResponse.setHttpStatusCode(httpStatusCode);
+        disponibilidadeAgendamentoResponse.setHttpStatus(httpStatus);
+        disponibilidadeAgendamentoResponse.setAgendamentos(agendamentos);
+        disponibilidadeAgendamentoResponse.setMensagem(mensagem);
+
+        return disponibilidadeAgendamentoResponse;
     }
 }

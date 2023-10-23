@@ -2,20 +2,17 @@ package com.api.hairpass.domain.services;
 
 import com.api.hairpass.adapters.controllers.dtos.request.CancelarAgendamentoRequest;
 import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
+import com.api.hairpass.adapters.controllers.dtos.request.DisponibilidadeAgendamentoRequest;
 import com.api.hairpass.adapters.persistence.AgendamentosRepository;
 import com.api.hairpass.domain.entities.*;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static com.api.hairpass.common.utils.FunctionsUtils.converterStringParaLocalDate;
@@ -78,10 +75,24 @@ public class AgendamentosService {
         try {
             if (agendamentosEntity.isPresent()){
                 agendamentosEntity.get().setCancelado(true);
+                agendamentosEntity.get().setDataDeAtualizacao(LocalDate.now());
                 agendamentosRepository.save(agendamentosEntity.get());
             }
         } catch (Exception e) {
             throw new RuntimeException("Agendamento não existe!");
         }
+    }
+
+    public List<AgendamentosEntity> disponibilidadeAgendamento(DisponibilidadeAgendamentoRequest disponibilidadeAgendamentoRequest) {
+
+        Long funcionarioId = Long.valueOf(disponibilidadeAgendamentoRequest.getFuncionarioId());
+
+        FuncionariosEntity funcionariosEntity = funcionariosService.findFuncionariosById(funcionarioId);
+
+        LocalDate localDate = converterStringParaLocalDate(disponibilidadeAgendamentoRequest.getData());
+
+        List<AgendamentosEntity> agendamentosEntityList = agendamentosRepository.findByFuncionarioIdAndDia(funcionariosEntity, localDate);
+
+        return agendamentosEntityList;
     }
 }
