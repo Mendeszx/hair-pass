@@ -1,8 +1,10 @@
 package com.api.hairpass.domain.services;
 
+import com.api.hairpass.adapters.controllers.dtos.request.CancelarAgendamentoRequest;
 import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
 import com.api.hairpass.adapters.persistence.AgendamentosRepository;
 import com.api.hairpass.domain.entities.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Optional;
+
+import static com.api.hairpass.common.utils.FunctionsUtils.converterStringParaLocalDate;
+import static com.api.hairpass.common.utils.FunctionsUtils.converterStringParaTime;
 
 @Service
 public class AgendamentosService {
@@ -29,6 +35,7 @@ public class AgendamentosService {
     @Autowired
     FuncionariosService funcionariosService;
 
+    @Transactional
     public void criarAgendamento(CriarAgendamentoRequest criarAgendamentoRequest) throws ParseException {
         AgendamentosEntity agendamentosEntity = new AgendamentosEntity();
 
@@ -61,23 +68,20 @@ public class AgendamentosService {
         agendamentosRepository.save(agendamentosEntity);
     }
 
-    public LocalDate converterStringParaLocalDate(String dataString) {
+    @Transactional
+    public void cancelarAgendamento(CancelarAgendamentoRequest cancelarAgendamentoRequest) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Long agendamentoId = Long.valueOf(cancelarAgendamentoRequest.getAgendamentoId());
 
-        LocalDate data = LocalDate.parse(dataString, formatter);
+        Optional<AgendamentosEntity> agendamentosEntity = agendamentosRepository.findById(agendamentoId);
 
-        return data;
-    }
-
-    public Time converterStringParaTime(String horaString) throws ParseException {
-
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-
-        Date data = sdf.parse(horaString);
-
-        Time horaTime = new Time(data.getTime());
-
-        return horaTime;
+        try {
+            if (agendamentosEntity.isPresent()){
+                agendamentosEntity.get().setCancelado(true);
+                agendamentosRepository.save(agendamentosEntity.get());
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Agendamento não existe!");
+        }
     }
 }

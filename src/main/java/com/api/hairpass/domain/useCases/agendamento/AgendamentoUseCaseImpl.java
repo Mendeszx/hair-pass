@@ -1,16 +1,14 @@
 package com.api.hairpass.domain.useCases.agendamento;
 
+import com.api.hairpass.adapters.controllers.dtos.request.CancelarAgendamentoRequest;
 import com.api.hairpass.adapters.controllers.dtos.request.CriarAgendamentoRequest;
+import com.api.hairpass.adapters.controllers.dtos.response.CancelarAgendamentoResponse;
 import com.api.hairpass.adapters.controllers.dtos.response.CriarAgendamentoResponse;
 import com.api.hairpass.domain.services.AgendamentosService;
-import com.api.hairpass.domain.entities.AgendamentosEntity;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
@@ -33,6 +31,21 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
         return ResponseEntity.status(criarAgendamentoResponse.getHttpStatusCode()).body(criarAgendamentoResponse);
     }
 
+    @Override
+    public ResponseEntity<CancelarAgendamentoResponse> cancelarAgendamento(CancelarAgendamentoRequest cancelarAgendamentoRequest) {
+        CancelarAgendamentoResponse cancelarAgendamentoResponse;
+
+        try {
+            agendamentosService.cancelarAgendamento(cancelarAgendamentoRequest);
+            cancelarAgendamentoResponse = cancelarAgendamentoResponse(204, HttpStatus.CREATED, "Agendamento cancelado com sucesso.");
+
+        } catch (Exception e) {
+            cancelarAgendamentoResponse = cancelarAgendamentoResponse(400, HttpStatus.BAD_REQUEST, "Erro: " + e.getMessage());
+        }
+
+        return ResponseEntity.status(cancelarAgendamentoResponse.getHttpStatusCode()).body(cancelarAgendamentoResponse);
+    }
+
     private CriarAgendamentoResponse criarAgendamentoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
         CriarAgendamentoResponse criarAgendamentoResponse = new CriarAgendamentoResponse();
 
@@ -41,5 +54,15 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
         criarAgendamentoResponse.setMensagem(mensagem);
 
         return criarAgendamentoResponse;
+    }
+
+    private CancelarAgendamentoResponse cancelarAgendamentoResponse(int httpStatusCode, HttpStatus httpStatus, String mensagem) {
+        CancelarAgendamentoResponse cancelarAgendamentoResponse = new CancelarAgendamentoResponse();
+
+        cancelarAgendamentoResponse.setHttpStatusCode(httpStatusCode);
+        cancelarAgendamentoResponse.setHttpStatus(httpStatus);
+        cancelarAgendamentoResponse.setMensagem(mensagem);
+
+        return cancelarAgendamentoResponse;
     }
 }

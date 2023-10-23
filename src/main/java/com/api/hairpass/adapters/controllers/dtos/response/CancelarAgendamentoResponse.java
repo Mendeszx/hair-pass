@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 @Data
-public class CriarAgendamentoResponse {
+public class CancelarAgendamentoResponse {
 
     private int httpStatusCode;
 
